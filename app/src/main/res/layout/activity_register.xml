@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.RegisterActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/username"
+        android:textStyle="bold"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:id="@+id/lblUsername"/>
+
+    <EditText
+        android:id="@+id/etRegisterUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_below="@+id/lblUsername"
+        android:background="@drawable/shape_textbox"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:padding="@dimen/_10sdp"
+        android:hint="@string/createUsername"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/password"
+        android:textStyle="bold"
+        android:layout_below="@+id/etRegisterUsername"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:id="@+id/lblPassword"/>
+
+    <EditText
+        android:id="@+id/etRegisterPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@drawable/shape_textbox"
+        android:hint="@string/createpassword"
+        android:inputType="textPassword"
+        android:padding="@dimen/_10sdp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/phonenumber"
+        android:textStyle="bold"
+        android:layout_below="@+id/etRegisterPassword"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:id="@+id/lblPhoneNumber"/>
+
+    <EditText
+        android:id="@+id/etRegisterPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblPhoneNumber"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@drawable/shape_textbox"
+        android:hint="@string/createPhoneNumber"
+        android:inputType="number"
+        android:padding="@dimen/_10sdp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/province"
+        android:textStyle="bold"
+        android:layout_below="@+id/etRegisterPhoneNumber"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:id="@+id/lblProvince"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etProvince"
+        android:layout_below="@+id/lblProvince"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:padding="@dimen/_10sdp"
+        android:background="@drawable/shape_textbox"
+        android:orientation="horizontal">
+
+    <Spinner
+        android:id="@+id/spProvince"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:layout_weight="5"
+       />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/kabupaten"
+        android:textStyle="bold"
+        android:layout_below="@+id/etProvince"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:id="@+id/lblKabupaten"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etKabupaten"
+        android:layout_below="@+id/lblKabupaten"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:padding="@dimen/_10sdp"
+        android:background="@drawable/shape_textbox"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/spKabupaten"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="textStart"
+            android:layout_weight="5"
+            />
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/city"
+        android:textStyle="bold"
+        android:layout_below="@+id/etKabupaten"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:id="@+id/lblCity"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etCity"
+        android:layout_below="@+id/lblCity"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:padding="@dimen/_10sdp"
+        android:background="@drawable/shape_textbox"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/spCity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="textStart"
+            android:layout_weight="5"
+            />
+    </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/village"
+                android:textStyle="bold"
+                android:layout_below="@+id/etCity"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:id="@+id/lblVillage"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/etVillage"
+                android:layout_below="@+id/lblVillage"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:padding="@dimen/_10sdp"
+                android:background="@drawable/shape_textbox"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spVillage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:layout_weight="5"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/zipcode"
+                android:textStyle="bold"
+                android:layout_below="@+id/etVillage"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:id="@+id/lblPostalCode"/>
+
+
+                <EditText
+                    android:id="@+id/tvPostalCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:layout_weight="5"
+                    android:inputType="none"
+                    android:textColor="@color/black"
+                    android:layout_below="@+id/lblPostalCode"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:background="@drawable/shape_textbox"
+                    android:layout_centerHorizontal="true"
+                    android:padding="@dimen/_10sdp"
+
+                    />
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lbl_profile_image"
+                android:layout_below="@+id/tvPostalCode"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="Set your Profile Image here !"/>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_below="@+id/lbl_profile_image"
+        android:src="@drawable/ic_baseline_person_24"
+        android:id="@+id/ivCameraTakeAPicture"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivCameraTakeAPicture"
+        android:text="Register"
+        android:id="@+id/btnRegister"
+        android:textAllCaps="false"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        />
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+</RelativeLayout>

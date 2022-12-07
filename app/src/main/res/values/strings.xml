@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Bobby Ryan</string>
+    <string name="username">Username</string>
+    <string name="createusername">Create your Username</string>
+    <string name="password">Password</string>
+    <string name="phonenumber">Phone Number</string>
+    <string name="province">Province</string>
+    <string name="kabupaten">Kabupaten</string>
+    <string name="city">Kota</string>
+    <string name="zipcode">Kode Pos</string>
+    <string name="village">Jalan</string>
+    <string name="createpassword">Create your Password</string>
+    <string name="createPhoneNumber">Input your Phone Number</string>
+    <string name="chooseProvince">Choose your Province</string>
+    <string name="createUsername">Create your Username</string>
+</resources>
