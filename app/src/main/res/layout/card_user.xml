@@ -2,23 +2,29 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:id="@+id/lnr_cv_provinsi"
+    android:background="@drawable/shape_textbox"
+    android:layout_margin="10dp"
     android:orientation="horizontal">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/test2"
-        android:id="@+id/test1"
+        android:layout_gravity="center"
+        android:textAllCaps="false"
+        android:gravity="center"
+        android:id="@+id/tv_nama_provinsi"
         android:layout_weight="1"
         android:text="Test"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/test2"
-        android:layout_weight="1"
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/test2"-->
+<!--        android:layout_weight="1"-->
 
-        android:text="Test"/>
+<!--        android:text="Test"/>-->
 
 
 </LinearLayout>

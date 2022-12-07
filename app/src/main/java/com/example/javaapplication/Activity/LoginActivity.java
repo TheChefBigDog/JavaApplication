@@ -81,39 +81,31 @@ public class LoginActivity extends AppCompatActivity {
                     Cursor c = database.rawQuery("SELECT * FROM " + DBHelper.TABLE_NAME +
                             " WHERE " + DBHelper.NAME_COl + " = '" + name + "'" +
                             " AND " + DBHelper.PASS_COL + " = '" + password + "' ", null);
-//                    SELECT name from table_name where _id = ?
-//                    Cursor c2 = database.rawQuery("SELECT name FROM " + DBHelper.TABLE_NAME + " WHERE " + DBHelper.ID_COL + " = '" + "?" + "' ", null);
-//                    cursor.getString(cursor.getColumnIndex("data"))
-
-//                        Log.e("TAG", "onClick: Test" );
-//                            int s1 = c2.getInt(c2.getColumnIndex(DBHelper.ID_COL));
-//                            Log.e("TAG", "onClick: " + s1 );
 
                     //Kita check kalau user and password match and existed in the row table. (Diambil logicnya dari LoginActivity)
                     if(c.getCount() > 0){
-                        Log.e("TAG", "onClick: User Exist" );
                         c.moveToFirst();
                         UserModel userModel = new UserModel();
                         userModel.setId(String.valueOf(c.getInt(c.getColumnIndex(DBHelper.ID_COL))));
-                        userModel.setName(c.getString(c.getColumnIndex(DBHelper.NAME_COl)));
-                        userModel.setPhoneNumber(c.getString(c.getColumnIndex(DBHelper.PHONE_COL)));
-                        userModel.setProvinsi(c.getString(c.getColumnIndex(DBHelper.PROVINSI_COL)));
-                        userModel.setKabupaten(c.getString(c.getColumnIndex(DBHelper.KABUPATEN_COL)));
-                        userModel.setKota(c.getString(c.getColumnIndex(DBHelper.KOTA_COL)));
-                        userModel.setJalan(c.getString(c.getColumnIndex(DBHelper.JALAN_COL)));
-                        userModel.setZipCode(c.getString(c.getColumnIndex(DBHelper.ZIP_CODE_COL)));
-                        userModel.setImageString(c.getString(c.getColumnIndex(DBHelper.IMAGE_STRING_COL)));
-                        userModel.setKota(c.getString(c.getColumnIndex(DBHelper.KOTA_COL)));
+//                        userModel.setName(c.getString(c.getColumnIndex(DBHelper.NAME_COl)));
+//                        userModel.setPhoneNumber(c.getString(c.getColumnIndex(DBHelper.PHONE_COL)));
+//                        userModel.setProvinsi(c.getString(c.getColumnIndex(DBHelper.PROVINSI_COL)));
+//                        userModel.setKabupaten(c.getString(c.getColumnIndex(DBHelper.KABUPATEN_COL)));
+//                        userModel.setKota(c.getString(c.getColumnIndex(DBHelper.KOTA_COL)));
+//                        userModel.setJalan(c.getString(c.getColumnIndex(DBHelper.JALAN_COL)));
+//                        userModel.setZipCode(c.getString(c.getColumnIndex(DBHelper.ZIP_CODE_COL)));
+//                        userModel.setImageString(c.getString(c.getColumnIndex(DBHelper.IMAGE_STRING_COL)));
+//                        userModel.setKota(c.getString(c.getColumnIndex(DBHelper.KOTA_COL)));
                         SharedPreferences.Editor prefEditor = pref.edit();
                         prefEditor.putString("_userid", userModel.getId());
-                        prefEditor.putString("_username", userModel.getName());
-                        prefEditor.putString("_phonenumber", userModel.getPhoneNumber());
-                        prefEditor.putString("_provinsi", userModel.getProvinsi());
-                        prefEditor.putString("_kabupaten", userModel.getKabupaten());
-                        prefEditor.putString("_kota", userModel.getKota());
-                        prefEditor.putString("_jalan", userModel.getJalan());
-                        prefEditor.putString("_zipcode", userModel.getZipCode());
-                        prefEditor.putString("_imagestring", userModel.getImageString());
+//                        prefEditor.putString("_username", userModel.getName());
+//                        prefEditor.putString("_phonenumber", userModel.getPhoneNumber());
+//                        prefEditor.putString("_provinsi", userModel.getProvinsi());
+//                        prefEditor.putString("_kabupaten", userModel.getKabupaten());
+//                        prefEditor.putString("_kota", userModel.getKota());
+//                        prefEditor.putString("_jalan", userModel.getJalan());
+//                        prefEditor.putString("_zipcode", userModel.getZipCode());
+//                        prefEditor.putString("_imagestring", userModel.getImageString());
                         prefEditor.apply();
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -121,7 +113,6 @@ public class LoginActivity extends AppCompatActivity {
                         dbHelper.close();
                         startActivity(intent);
                     }else{
-                        Log.e("TAG", "onClick: User doesnt Exist" );
                         c.close();
                         Toast.makeText(LoginActivity.this, "User Doesnt Exist", Toast.LENGTH_SHORT).show();
                     }

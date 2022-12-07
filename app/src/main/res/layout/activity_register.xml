@@ -105,8 +105,8 @@
         android:background="@drawable/shape_textbox"
         android:orientation="horizontal">
 
-    <Spinner
-        android:id="@+id/spProvince"
+    <TextView
+        android:id="@+id/tvProvince"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAlignment="textStart"
@@ -136,8 +136,8 @@
         android:background="@drawable/shape_textbox"
         android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/spKabupaten"
+        <TextView
+            android:id="@+id/tvKabupaten"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textAlignment="textStart"

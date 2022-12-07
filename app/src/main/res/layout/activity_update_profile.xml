@@ -7,7 +7,283 @@
     tools:context=".Activity.UpdateProfileActivity">
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_edit_update_profile"
+        android:layout_above="@+id/btn_simpan_edit"
+        android:layout_alignParentTop="true"
+        >
 
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/lbl_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:text="Username"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:inputType="text"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:hint="Update your Username"
+                    android:padding="@dimen/_10sdp"
+                    android:layout_below="@+id/lbl_username"
+                    android:background="@drawable/shape_textbox" />
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lnr_phone_number"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/et_username"
+                    android:padding="@dimen/_5sdp"
+                    >
+                    <TextView
+                        android:id="@+id/lbl_pemerintah_propinsi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:text="Phone Number*"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:textColor="@color/md_grey_600"
+                        android:textStyle="bold" />
+
+
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:layout_below="@+id/lbl_pemerintah_propinsi"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:background="@drawable/shape_textbox"
+                            android:textAlignment="textStart"
+                            android:padding="@dimen/_10sdp"
+                            android:hint="Update your Phone Number"
+                            android:id="@+id/et_phone_number"/>
+
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lnr_provinsi"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/lnr_phone_number"
+                    android:padding="@dimen/_5sdp"
+                    >
+                    <TextView
+                        android:id="@+id/lbl_provinsi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:text="Provinsi*"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:textColor="@color/md_grey_600"
+                        android:textStyle="bold" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:textAlignment="textStart"
+                            android:padding="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:background="@drawable/shape_textbox"
+                            android:layout_below="@+id/lbl_provinsi"
+                            android:id="@+id/tv_provinsi"/>
+
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lnr_kabupaten"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/lnr_provinsi"
+                    android:padding="@dimen/_5sdp"
+                    >
+                    <TextView
+                        android:id="@+id/lbl_kabupaten"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:text="Kabupaten*"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:textColor="@color/md_grey_600"
+                        android:textStyle="bold" />
+
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:textAlignment="textStart"
+                            android:padding="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:background="@drawable/shape_textbox"
+                            android:layout_below="@+id/lbl_kabupaten"
+                            android:id="@+id/tv_kabupaten"/>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lnr_kota"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/lnr_kabupaten"
+                    android:padding="@dimen/_5sdp"
+                    >
+                    <TextView
+                        android:id="@+id/lbl_kota"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:text="Kota*"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:textColor="@color/md_grey_600"
+                        android:textStyle="bold" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:textAlignment="textStart"
+                            android:padding="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:background="@drawable/shape_textbox"
+                            android:layout_below="@+id/lbl_kota"
+                            android:id="@+id/tv_kota"/>
+
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lnr_kelurahaan"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/lnr_kota"
+                    android:padding="@dimen/_5sdp"
+                    >
+                    <TextView
+                        android:id="@+id/lbl_keluarahaan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:text="Kelurahaan*"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:textColor="@color/md_grey_600"
+                        android:textStyle="bold" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:textAlignment="textStart"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:padding="@dimen/_10sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:background="@drawable/shape_textbox"
+                            android:layout_below="@+id/lbl_keluarahaan"
+                            android:id="@+id/tv_kelurahaan"/>
+
+
+
+                </RelativeLayout>
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lnr_kode_pos"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/lnr_kelurahaan"
+                    android:padding="@dimen/_5sdp"
+                    >
+                    <TextView
+                        android:id="@+id/lbl_kode_pos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:text="Kode Pos*"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:textColor="@color/md_grey_600"
+                        android:textStyle="bold" />
+
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="textStart"
+                        android:background="@drawable/shape_textbox"
+                        android:layout_below="@+id/lbl_kode_pos"
+                        android:hint="Update Zip Code"
+                        android:padding="@dimen/_10sdp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:id="@+id/tv_kode_pos"/>
+
+
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+        </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_simpan_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update"
+        android:textColor="@color/white"
+        android:layout_marginEnd="20dp"
+        android:textAllCaps="false"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        />
 
 
 

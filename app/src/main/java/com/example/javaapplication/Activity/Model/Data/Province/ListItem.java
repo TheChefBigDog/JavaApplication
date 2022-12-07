@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class ListItem{
 
 	@SerializedName("zipCode")
-	private Object zipCode;
+	private String zipCode;
 
 	@SerializedName("lookupId")
 	private String lookupId;
@@ -17,22 +17,22 @@ public class ListItem{
 	private String name;
 
 	@SerializedName("subdistrictId")
-	private Object subdistrictId;
+	private String subdistrictId;
 
 	@SerializedName("cityId")
-	private Object cityId;
+	private String cityId;
 
 	@SerializedName("provinceId")
-	private Object provinceId;
+	private String provinceId;
 
 	@SerializedName("countryId")
-	private int countryId;
+	private String countryId;
 
-	public void setZipCode(Object zipCode){
+	public void setZipCode(String zipCode){
 		this.zipCode = zipCode;
 	}
 
-	public Object getZipCode(){
+	public String getZipCode(){
 		return zipCode;
 	}
 
@@ -60,35 +60,35 @@ public class ListItem{
 		return name;
 	}
 
-	public void setSubdistrictId(Object subdistrictId){
+	public void setSubdistrictId(String subdistrictId){
 		this.subdistrictId = subdistrictId;
 	}
 
-	public Object getSubdistrictId(){
+	public String getSubdistrictId(){
 		return subdistrictId;
 	}
 
-	public void setCityId(Object cityId){
+	public void setCityId(String cityId){
 		this.cityId = cityId;
 	}
 
-	public Object getCityId(){
+	public String getCityId(){
 		return cityId;
 	}
 
-	public void setProvinceId(Object provinceId){
+	public void setProvinceId(String provinceId){
 		this.provinceId = provinceId;
 	}
 
-	public Object getProvinceId(){
+	public String getProvinceId(){
 		return provinceId;
 	}
 
-	public void setCountryId(int countryId){
+	public void setCountryId(String countryId){
 		this.countryId = countryId;
 	}
 
-	public int getCountryId(){
+	public String getCountryId(){
 		return countryId;
 	}
 }

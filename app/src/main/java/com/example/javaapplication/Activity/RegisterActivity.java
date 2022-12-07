@@ -2,26 +2,33 @@ package com.example.javaapplication.Activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -31,6 +38,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.javaapplication.Activity.Adapter.ProvinsiAdapter;
 import com.example.javaapplication.Activity.DBHelper.DBHelper;
 import com.example.javaapplication.Activity.Model.Data.Kabupaten.KabupatenModel;
 import com.example.javaapplication.Activity.Model.Data.Kabupaten.ListItemKabupaten;
@@ -48,15 +56,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements ProvinsiInterface{
 
     @BindView(R.id.btnRegister) Button btnRegister;
     @BindView(R.id.etRegisterUsername) EditText etRegisterUsername;
     @BindView(R.id.etRegisterPassword) EditText etRegisterPassword;
     @BindView(R.id.etRegisterPhoneNumber) EditText etRegisterPhoneNumber;
     @BindView(R.id.ivCameraTakeAPicture) ImageView ivCameraTakeAPicture;
-    @BindView(R.id.spProvince) Spinner spProvince;
-    @BindView(R.id.spKabupaten) Spinner spKabupaten;
+    @BindView(R.id.tvProvince) TextView tvProvince;
+    @BindView(R.id.tvKabupaten) TextView tvKabupaten;
     @BindView(R.id.spCity) Spinner spCity;
     @BindView(R.id.spVillage) Spinner spVillage;
     @BindView(R.id.tvPostalCode) TextView tvPostalCode;
@@ -77,7 +85,11 @@ public class RegisterActivity extends AppCompatActivity {
     ArrayList<VillageListItem> villageListItems;
     ArrayList<ListKotaItem> listKotaItems;
     int index2;
+    ProvinsiAdapter provinsiAdapter;
     String imageString;
+    ArrayList<ListItem> provinceItemArrayList = new ArrayList<>();
+    LinearLayoutManager linearLayoutManager;
+    String provinsiRegister, postalTypeRegistrasi, lookUpIdRegistrasi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,8 +119,8 @@ public class RegisterActivity extends AppCompatActivity {
                 String names = etRegisterUsername.getText().toString();
                 String password = etRegisterPassword.getText().toString();
                 String phonenumber = etRegisterPhoneNumber.getText().toString();
-                String provinsi = spProvince.getSelectedItem().toString();
-                String kabupaten = spKabupaten.getSelectedItem().toString();
+                String provinsi = tvProvince.getText().toString();
+                String kabupaten = tvKabupaten.getText().toString();
                 String kota = spCity.getSelectedItem().toString();
                 String village = spVillage.getSelectedItem().toString();
                 String zipCode = tvPostalCode.getText().toString();
@@ -134,172 +146,244 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void setProvinceList() {
-        RequestProvinceBody requestProvinceBody = new RequestProvinceBody();
-        requestProvinceBody.setUsername("15040198");
-        requestProvinceBody.setVersion("133");
-        provinceInterface.getProvince(requestProvinceBody).enqueue(new Callback<ProvinceModel>() {
+        tvProvince.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<ProvinceModel> call, Response<ProvinceModel> response) {
-                if(response.isSuccessful()){
-                    if(response.body().getResponseStatus().equals("OK"))
-                        for(ListItem listItem : response.body().getList()){
-                            ListItem provinceModel = new ListItem();
-                            provinceModel.setName(listItem.getName());
-                            provinceModel.setLookupId(listItem.getLookupId());
-                            provinceModel.setPostalType(listItem.getPostalType());
-                            provinceModels.add(provinceModel);
-                            provinceNameList.add(provinceModel.getName());
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(RegisterActivity.this);
+                LayoutInflater inflater = getLayoutInflater();
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(true);
+                View viewDialog = inflater.inflate(R.layout.custom_dialog, null);
+                dialog.setContentView(viewDialog);
+                RecyclerView rvProvinsi = viewDialog.findViewById(R.id.rv_provinces);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                RequestProvinceBody requestProvinceBody = new RequestProvinceBody();
+                requestProvinceBody.setUsername("15040198");
+                requestProvinceBody.setVersion("133");
+                provinceInterface.getProvince(requestProvinceBody).enqueue(new Callback<ProvinceModel>() {
+                    @Override
+                    public void onResponse(Call<ProvinceModel> call, Response<ProvinceModel> response) {
+                        if(response.isSuccessful()) {
+                            provinceItemArrayList = new ArrayList<>();
+                            provinceItemArrayList = response.body().getList();
+                            provinsiAdapter = new ProvinsiAdapter(provinceItemArrayList,
+                                    RegisterActivity.this,
+                                    RegisterActivity.this,
+                                    dialog);
+                            rvProvinsi.setAdapter(provinsiAdapter);
+                            linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+                            rvProvinsi.setLayoutManager(linearLayoutManager);
+                            setKabupatenList(lookUpIdRegistrasi, postalTypeRegistrasi);
+                            Log.e("TAG", "onResponse: " + lookUpIdRegistrasi + " " + postalTypeRegistrasi);
                         }
-                        setSpinnerProvinceList();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ProvinceModel> call, Throwable t) {
-                Toast.makeText(RegisterActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onFailure(Call<ProvinceModel> call, Throwable t) {
+                        Toast.makeText(RegisterActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                dialog.show();
             }
         });
     }
 
     private void setSpinnerProvinceList() {
-        spProvince.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item,
-                provinceNameList) {
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                if(position >= provinceNameList.size()) {
-                    position = 0;
-                }
-                View v = super.getView(position, convertView, parent);
-                v.setPadding(v.getPaddingLeft(),15, 0, 15);
-                ((TextView) v).setGravity(Gravity.CENTER);
-                return v;
-            }
-
-            @Override
-            public View getDropDownView(int position, View convertView, ViewGroup parent) {
-
-                View v = super.getDropDownView(position, convertView, parent);
-
-                ((TextView) v).setGravity(Gravity.CENTER);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                    ((TextView) v).setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    ((TextView) v).setTextColor(getResources().getColor(R.color.black));
-                }
-                return v;
-            }{
-                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            }
-        });
-
-
-        spProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) view).setTextColor(getResources().getColor(R.color.black));
-                if(position>=0) {
-                    selectedInstansiType = provinceModels.get(position).getPostalType();
-                    idProvinsiInstansiSpinner = provinceModels.get(position).getLookupId();
-                    selectedProvinseInstansi = provinceModels.get(position).getName();
-                    setKabupatenList(idProvinsiInstansiSpinner, selectedInstansiType, selectedProvinseInstansi);
-                    Log.e("TAG", "onItemSelected: " + idProvinsiInstansiSpinner);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        spProvince.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item,
+//                provinceNameList) {
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//                if(position >= provinceNameList.size()) {
+//                    position = 0;
+//                }
+//                View v = super.getView(position, convertView, parent);
+//                v.setPadding(v.getPaddingLeft(),15, 0, 15);
+//                ((TextView) v).setGravity(Gravity.CENTER);
+//                return v;
+//            }
+//
+//            @Override
+//            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+//
+//                View v = super.getDropDownView(position, convertView, parent);
+//
+//                ((TextView) v).setGravity(Gravity.CENTER);
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+//                    ((TextView) v).setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+//                    ((TextView) v).setTextColor(getResources().getColor(R.color.black));
+//                }
+//                return v;
+//            }{
+//                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//            }
+//        });
+//
+//
+//        spProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                ((TextView) view).setTextColor(getResources().getColor(R.color.black));
+//                if(position>=0) {
+//                    selectedInstansiType = provinceModels.get(position).getPostalType();
+//                    idProvinsiInstansiSpinner = provinceModels.get(position).getLookupId();
+//                    selectedProvinseInstansi = provinceModels.get(position).getName();
+//                    setKabupatenList(idProvinsiInstansiSpinner, selectedInstansiType, selectedProvinseInstansi);
+//                    Log.e("TAG", "onItemSelected: " + idProvinsiInstansiSpinner);
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
     }
 
-    private void setKabupatenList(String idProvinsiInstansiSpinner, String selectedInstansiType, String selectedProvinseInstansi) {
+    private void setKabupatenList(String selectedID, String selectedPostalType) {
         RequestKabupatenBody requestKabupatenBody = new RequestKabupatenBody();
         requestKabupatenBody.setUsername("15040198");
         requestKabupatenBody.setVersion("133");
-        requestKabupatenBody.setPostalId(idProvinsiInstansiSpinner);
-        requestKabupatenBody.setPostalType(selectedInstansiType);
-        provinceInterface.getKabupaten(requestKabupatenBody).enqueue(new Callback<KabupatenModel>() {
+        requestKabupatenBody.setPostalId(selectedID);
+        requestKabupatenBody.setPostalType(selectedPostalType);
+        tvKabupaten.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<KabupatenModel> call, Response<KabupatenModel> response) {
-                if(response.isSuccessful()){
-                    if(response.body().getResponseStatus().equals("OK")){
-                        kabupatenArrayList = new ArrayList<>();
-                        kabupatenNamesList = new ArrayList<>();
-                        for(ListItemKabupaten listItemKabupaten : response.body().getList()){
-                            ListItemKabupaten listItemKabupatenModel = new ListItemKabupaten();
-                            listItemKabupatenModel.setName(listItemKabupaten.getName());
-                            listItemKabupatenModel.setLookupId(listItemKabupaten.getLookupId());
-                            listItemKabupatenModel.setPostalType(listItemKabupaten.getPostalType());
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(RegisterActivity.this);
+                LayoutInflater inflater = getLayoutInflater();
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(true);
+                View viewDialog = inflater.inflate(R.layout.custom_dialog, null);
+                dialog.setContentView(viewDialog);
+                RecyclerView rvProvinsi = viewDialog.findViewById(R.id.rv_provinces);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
-                            kabupatenArrayList.add(listItemKabupaten);
-                            kabupatenNamesList.add(listItemKabupaten.getName());
+                provinceInterface.getKabupaten(requestKabupatenBody).enqueue(new Callback<KabupatenModel>() {
+                    @Override
+                    public void onResponse(Call<KabupatenModel> call, Response<KabupatenModel> response) {
+                        if(response.isSuccessful()){
+                            kabupatenArrayList = new ArrayList<>();
+                            kabupatenArrayList = response.body().getList();
+                            provinsiAdapter = new ProvinsiAdapter(provinceItemArrayList,
+                                    RegisterActivity.this,
+                                    RegisterActivity.this,
+                                    dialog);
+                            rvProvinsi.setAdapter(provinsiAdapter);
+                            linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+                            rvProvinsi.setLayoutManager(linearLayoutManager);
+                            setKabupatenList(lookUpIdRegistrasi, postalTypeRegistrasi);
+                            Log.e("TAG", "onResponse: " + lookUpIdRegistrasi + " " + postalTypeRegistrasi);
                         }
-                        setSpinnerKabupatenList(selectedProvinseInstansi);
                     }
-                }
-            }
 
-            @Override
-            public void onFailure(Call<KabupatenModel> call, Throwable t) {
-
+                    @Override
+                    public void onFailure(Call<KabupatenModel> call, Throwable t) {
+                        Toast.makeText(RegisterActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                    }
+                });
+//                provinceInterface.get(requestProvinceBody).enqueue(new Callback<ProvinceModel>() {
+//                    @Override
+//                    public void onResponse(Call<ProvinceModel> call, Response<ProvinceModel> response) {
+//                        if(response.isSuccessful()) {
+//                            kabupatenArrayList = new ArrayList<>();
+//                            kabupatenArrayList = response.body().getList();
+//                            provinsiAdapter = new ProvinsiAdapter(provinceItemArrayList,
+//                                    RegisterActivity.this,
+//                                    RegisterActivity.this,
+//                                    dialog);
+//                            rvProvinsi.setAdapter(provinsiAdapter);
+//                            linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+//                            rvProvinsi.setLayoutManager(linearLayoutManager);
+//                            setKabupatenList(lookUpIdRegistrasi, postalTypeRegistrasi);
+//                            Log.e("TAG", "onResponse: " + lookUpIdRegistrasi + " " + postalTypeRegistrasi);
+//                        }
+//                    }
+//                    @Override
+//                    public void onFailure(Call<ProvinceModel> call, Throwable t) {
+//                        Toast.makeText(RegisterActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+                dialog.show();
             }
         });
+//        provinceInterface.getKabupaten(requestKabupatenBody).enqueue(new Callback<KabupatenModel>() {
+//            @Override
+//            public void onResponse(Call<KabupatenModel> call, Response<KabupatenModel> response) {
+//                if(response.isSuccessful()){
+//                    if(response.body().getResponseStatus().equals("OK")){
+//                        kabupatenArrayList = new ArrayList<>();
+//                        kabupatenNamesList = new ArrayList<>();
+//                        for(ListItemKabupaten listItemKabupaten : response.body().getList()){
+//                            ListItemKabupaten listItemKabupatenModel = new ListItemKabupaten();
+//                            listItemKabupatenModel.setName(listItemKabupaten.getName());
+//                            listItemKabupatenModel.setLookupId(listItemKabupaten.getLookupId());
+//                            listItemKabupatenModel.setPostalType(listItemKabupaten.getPostalType());
+//                            kabupatenArrayList.add(listItemKabupaten);
+//                            kabupatenNamesList.add(listItemKabupaten.getName());
+//                        }
+//                        setSpinnerKabupatenList(selectedProvinseInstansi);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<KabupatenModel> call, Throwable t) {
+//
+//            }
+//        });
 
     }
 
     private void setSpinnerKabupatenList(String selectedProvinseInstansi) {
-        spKabupaten.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item,
-                kabupatenNamesList) {
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                if(position >= kabupatenNamesList.size()) {
-                    position = 0;
-                }
-                View v = super.getView(position, convertView, parent);
-                v.setPadding(v.getPaddingLeft(),15, 0, 15);
-                ((TextView) v).setGravity(Gravity.CENTER);
-                return v;
-            }
-
-            @Override
-            public View getDropDownView(int position, View convertView, ViewGroup parent) {
-
-                View v = super.getDropDownView(position, convertView, parent);
-
-                ((TextView) v).setGravity(Gravity.CENTER);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                    ((TextView) v).setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    ((TextView) v).setTextColor(getResources().getColor(R.color.black));
-                }
-                return v;
-            }{
-                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            }
-        });
-        for(int i = 0; i < kabupatenNamesList.size(); i++){
-            if(kabupatenNamesList.get(i).equals(selectedProvinseInstansi)){
-                index2 = i;
-            }
-        }
-        spKabupaten.setSelection(index2);
-        spKabupaten.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) view).setTextColor(getResources().getColor(R.color.black));
-                if(position>=0) {
-                    selectedKabupatenInstansiType = kabupatenArrayList.get(position).getPostalType();
-                    selectedKabupatenInstansiType = kabupatenArrayList.get(position).getPostalType();
-                    idKabupatenInstasiSpinner = kabupatenArrayList.get(position).getLookupId();
-                    selectedKabupatenInstansi = kabupatenArrayList.get(position).getName();
-                    setKotaList(selectedKabupatenInstansiType, idKabupatenInstasiSpinner);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        spKabupaten.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item,
+//                kabupatenNamesList) {
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//                if(position >= kabupatenNamesList.size()) {
+//                    position = 0;
+//                }
+//                View v = super.getView(position, convertView, parent);
+//                v.setPadding(v.getPaddingLeft(),15, 0, 15);
+//                ((TextView) v).setGravity(Gravity.CENTER);
+//                return v;
+//            }
+//
+//            @Override
+//            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+//
+//                View v = super.getDropDownView(position, convertView, parent);
+//
+//                ((TextView) v).setGravity(Gravity.CENTER);
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+//                    ((TextView) v).setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+//                    ((TextView) v).setTextColor(getResources().getColor(R.color.black));
+//                }
+//                return v;
+//            }{
+//                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//            }
+//        });
+//        for(int i = 0; i < kabupatenNamesList.size(); i++){
+//            if(kabupatenNamesList.get(i).equals(selectedProvinseInstansi)){
+//                index2 = i;
+//            }
+//        }
+//        spKabupaten.setSelection(index2);
+//        spKabupaten.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                ((TextView) view).setTextColor(getResources().getColor(R.color.black));
+//                if(position>=0) {
+//                    selectedKabupatenInstansiType = kabupatenArrayList.get(position).getPostalType();
+//                    idKabupatenInstasiSpinner = kabupatenArrayList.get(position).getLookupId();
+//                    selectedKabupatenInstansi = kabupatenArrayList.get(position).getName();
+////                    setKotaList(selectedKabupatenInstansiType, idKabupatenInstasiSpinner);
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
     }
 
     private void setKotaList(String selectedKabupatenInstansiType, String idKabupatenInstasiSpinner) {
@@ -530,5 +614,13 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         dbHelper.close();
+    }
+
+    @Override
+    public void getProvinsi(String provinsi, String postalType, String lookUpId) {
+        postalType = postalTypeRegistrasi;
+        lookUpId = lookUpIdRegistrasi;
+        Log.e("TAG", "getProvinsi: " + provinsi + " " + postalType + " " + lookUpId);
+        tvProvince.setText(provinsi);
     }
 }

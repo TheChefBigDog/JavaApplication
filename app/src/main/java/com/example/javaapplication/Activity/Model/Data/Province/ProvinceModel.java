@@ -1,5 +1,6 @@
 package com.example.javaapplication.Activity.Model.Data.Province;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
@@ -16,7 +17,7 @@ public class ProvinceModel{
 	private Object responseMessage;
 
 	@SerializedName("list")
-	private List<ListItem> list;
+	private ArrayList<ListItem> list;
 
 	@SerializedName("responseId")
 	private String responseId;
@@ -45,11 +46,11 @@ public class ProvinceModel{
 		return responseMessage;
 	}
 
-	public void setList(List<ListItem> list){
+	public void setList(ArrayList<ListItem> list){
 		this.list = list;
 	}
 
-	public List<ListItem> getList(){
+	public ArrayList<ListItem> getList(){
 		return list;
 	}
 

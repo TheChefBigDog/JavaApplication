@@ -1,30 +1,31 @@
 package com.example.javaapplication.Activity.Model.Data.Kabupaten;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 public class KabupatenModel{
 
 	@SerializedName("responseSlack")
-	private Object responseSlack;
+	private String responseSlack;
 
 	@SerializedName("responseStatus")
 	private String responseStatus;
 
 	@SerializedName("responseMessage")
-	private Object responseMessage;
+	private String responseMessage;
 
 	@SerializedName("list")
-	private List<ListItemKabupaten> list;
+	private ArrayList<ListItemKabupaten> list;
 
 	@SerializedName("responseId")
 	private String responseId;
 
-	public void setResponseSlack(Object responseSlack){
+	public void setResponseSlack(String responseSlack){
 		this.responseSlack = responseSlack;
 	}
 
-	public Object getResponseSlack(){
+	public String getResponseSlack(){
 		return responseSlack;
 	}
 
@@ -36,19 +37,19 @@ public class KabupatenModel{
 		return responseStatus;
 	}
 
-	public void setResponseMessage(Object responseMessage){
+	public void setResponseMessage(String responseMessage){
 		this.responseMessage = responseMessage;
 	}
 
-	public Object getResponseMessage(){
+	public String getResponseMessage(){
 		return responseMessage;
 	}
 
-	public void setList(List<ListItemKabupaten> list){
+	public void setList(ArrayList<ListItemKabupaten> list){
 		this.list = list;
 	}
 
-	public List<ListItemKabupaten> getList(){
+	public ArrayList<ListItemKabupaten> getList(){
 		return list;
 	}
 
