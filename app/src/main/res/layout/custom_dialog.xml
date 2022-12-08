@@ -24,7 +24,15 @@
         android:layout_below="@+id/tv_title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/_5sdp"
+
         android:id="@+id/rv_provinces"/>
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/pb_dialog"
+        android:layout_centerInParent="true"
+        />
 
 
 <!--    <LinearLayout-->

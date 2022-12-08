@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#36393F"
     android:layout_height="match_parent"
     tools:context=".Activity.LoginActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="#282b30"
         android:layout_centerInParent="true"
         android:layout_marginHorizontal="10dp"
         app:cardCornerRadius="10dp">
@@ -24,12 +26,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_10sdp"
+                android:textColorHint="@color/white_grey"
                 android:background="@drawable/shape_textbox"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="10dp"
                 android:hint="@string/username"
                 android:padding="10dp"
-                android:textColor="@color/black"
+
+                android:textColor="@color/white"
                 android:inputType="text" />
 
             <RelativeLayout
@@ -52,9 +56,10 @@
                     android:hint="@string/password"
                     android:inputType="textPassword"
                     android:background="@null"
+                    android:textColorHint="@color/white_grey"
                     app:boxBackgroundMode="none"
                     android:layout_toStartOf="@+id/ivEye"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/white" />
 
                 <ImageView
                     android:id="@+id/ivEye"
@@ -71,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rlPassowrd"
                 android:text="Login"
+                android:backgroundTint="@color/blue_discord"
                 android:id="@+id/btnLogin"
                 android:textAllCaps="false"
                 android:layout_marginStart="@dimen/_10sdp"
@@ -83,8 +89,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/btnLogin"
-                android:text="Register Here!"
+                android:text="Register Here !"
                 android:gravity="center"
+                android:textColor="@color/red"
                 android:id="@+id/tvRegister"/>
 
 

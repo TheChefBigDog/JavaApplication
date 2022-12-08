@@ -2,7 +2,7 @@ package com.example.javaapplication.Activity;
 
 import com.google.gson.annotations.SerializedName;
 
-public class RequestKabupatenBody {
+public class RequestLocationBody {
     @SerializedName("username")
     private String username;
 

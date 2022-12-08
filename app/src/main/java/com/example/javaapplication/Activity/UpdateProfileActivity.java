@@ -87,23 +87,23 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 RequestProvinceBody requestProvinceBody = new RequestProvinceBody();
                 requestProvinceBody.setUsername("15040198");
                 requestProvinceBody.setVersion("133");
-                provinceInterface.getProvince(requestProvinceBody).enqueue(new Callback<ProvinceModel>() {
-                    @Override
-                    public void onResponse(Call<ProvinceModel> call, Response<ProvinceModel> response) {
-                        if(response.isSuccessful()) {
-                            provinceItemArrayList = new ArrayList<>();
-                            provinceItemArrayList = response.body().getList();
-//                            provinsiAdapter = new ProvinsiAdapter(provinceItemArrayList, UpdateProfileActivity.this);
-//                            rvProvinsi.setAdapter(provinsiAdapter);
-                            linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-                            rvProvinsi.setLayoutManager(linearLayoutManager);
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<ProvinceModel> call, Throwable t) {
-                        Toast.makeText(UpdateProfileActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
-                    }
-                });
+//                provinceInterface.getProvince(requestProvinceBody).enqueue(new Callback<ProvinceModel>() {
+//                    @Override
+//                    public void onResponse(Call<ProvinceModel> call, Response<ProvinceModel> response) {
+//                        if(response.isSuccessful()) {
+//                            provinceItemArrayList = new ArrayList<>();
+//                            provinceItemArrayList = response.body().getList();
+////                            provinsiAdapter = new ProvinsiAdapter(provinceItemArrayList, UpdateProfileActivity.this);
+////                            rvProvinsi.setAdapter(provinsiAdapter);
+//                            linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+//                            rvProvinsi.setLayoutManager(linearLayoutManager);
+//                        }
+//                    }
+//                    @Override
+//                    public void onFailure(Call<ProvinceModel> call, Throwable t) {
+//                        Toast.makeText(UpdateProfileActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 
 
 

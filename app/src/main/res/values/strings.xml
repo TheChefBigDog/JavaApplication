@@ -12,5 +12,8 @@
     <string name="createpassword">Create your Password</string>
     <string name="createPhoneNumber">Input your Phone Number</string>
     <string name="chooseProvince">Choose your Province</string>
+    <string name="chooseKabupaten">Choose your District</string>
+    <string name="chooseCity">Choose your City</string>
+    <string name="chooseVillage">Choose your SubDistrict</string>
     <string name="createUsername">Create your Username</string>
 </resources>

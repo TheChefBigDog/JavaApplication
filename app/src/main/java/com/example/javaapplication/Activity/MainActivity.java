@@ -56,16 +56,39 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = new DBHelper(MainActivity.this);
         database = dbHelper.getWritableDatabase();
         user_id = pref.getString("_userid", "");
-        Cursor c = database.rawQuery("SELECT id FROM " + DBHelper.TABLE_NAME + " WHERE " + DBHelper.ID_COL, null);
-        if(c.getCount() > 0){
-            c.moveToFirst();
+        Log.e("TAG", "onCreate: " + user_id);
+        Cursor c = database.rawQuery("SELECT * FROM " + DBHelper.TABLE_NAME +
+                " WHERE " + DBHelper.ID_COL + " = '" + user_id + "'",null);
+//        Cursor c = database.rawQuery(db.rawQuery("SELECT * from " + TABLE_NAME + " where " +
+//        COL_3+" =?", new String[]{"sarthaknegi94@yahoo.com"}););
+        if(c.moveToFirst()){
             UserModel userModel = new UserModel();
-            userModel.setName(String.valueOf(c.getInt(c.getColumnIndex(DBHelper.NAME_COl))));
+            userModel.setName(c.getString(c.getColumnIndex(DBHelper.NAME_COl)));
+            userModel.setPhoneNumber(c.getString(c.getColumnIndex(DBHelper.PHONE_COL)));
+            userModel.setProvinsi(c.getString(c.getColumnIndex(DBHelper.PROVINSI_COL)));
+            userModel.setKabupaten(c.getString(c.getColumnIndex(DBHelper.KABUPATEN_COL)));
+            userModel.setKota(c.getString(c.getColumnIndex(DBHelper.KOTA_COL)));
+            userModel.setJalan(c.getString(c.getColumnIndex(DBHelper.JALAN_COL)));
+            userModel.setZipCode(c.getString(c.getColumnIndex(DBHelper.ZIP_CODE_COL)));
+            Log.e("TAG", "onCreate: " + userModel.getName());
             tvName.setText(userModel.getName());
-            c.close();
-        }else{
-
+            tvPhoneNumber.setText(userModel.getPhoneNumber());
+            tvProvinsi.setText(userModel.getProvinsi());
+            tvKabupaten.setText(userModel.getKabupaten());
+            tvKota.setText(userModel.getKota());
+            tvJalan.setText(userModel.getJalan());
+            tvKodePos.setText(userModel.getZipCode());
         }
+//        if(c.getCount() > 0){
+//            c.moveToFirst();
+//            UserModel userModel = new UserModel();
+//            userModel.setName(String.valueOf(c.getInt(c.getColumnIndex(DBHelper.NAME_COl))));
+//            Log.e("TAG", "onCreate: " + userModel.getName());
+//            tvName.setText(userModel.getName());
+//            c.close();
+//        }else{
+//
+//        }
 //        provinsi = pref.getString("_provinsi", "");
 //        kabupaten = pref.getString("_kabupaten", "");
 //        phonenumber = pref.getString("_phonenumber", "");

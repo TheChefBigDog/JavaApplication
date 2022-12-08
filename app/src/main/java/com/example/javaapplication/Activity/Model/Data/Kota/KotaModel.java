@@ -1,30 +1,31 @@
 package com.example.javaapplication.Activity.Model.Data.Kota;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 public class KotaModel{
 
 	@SerializedName("responseSlack")
-	private Object responseSlack;
+	private String responseSlack;
 
 	@SerializedName("responseStatus")
 	private String responseStatus;
 
 	@SerializedName("responseMessage")
-	private Object responseMessage;
+	private String responseMessage;
 
 	@SerializedName("list")
-	private List<ListKotaItem> list;
+	private ArrayList<ListKotaItem> list;
 
 	@SerializedName("responseId")
 	private String responseId;
 
-	public void setResponseSlack(Object responseSlack){
+	public void setResponseSlack(String responseSlack){
 		this.responseSlack = responseSlack;
 	}
 
-	public Object getResponseSlack(){
+	public String getResponseSlack(){
 		return responseSlack;
 	}
 
@@ -36,19 +37,19 @@ public class KotaModel{
 		return responseStatus;
 	}
 
-	public void setResponseMessage(Object responseMessage){
+	public void setResponseMessage(String responseMessage){
 		this.responseMessage = responseMessage;
 	}
 
-	public Object getResponseMessage(){
+	public String getResponseMessage(){
 		return responseMessage;
 	}
 
-	public void setList(List<ListKotaItem> list){
+	public void setList(ArrayList<ListKotaItem> list){
 		this.list = list;
 	}
 
-	public List<ListKotaItem> getList(){
+	public ArrayList<ListKotaItem> getList(){
 		return list;
 	}
 

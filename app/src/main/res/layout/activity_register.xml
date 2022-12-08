@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#36393F"
     tools:context=".Activity.RegisterActivity">
 
     <androidx.core.widget.NestedScrollView
@@ -19,6 +20,7 @@
         android:layout_height="wrap_content"
         android:text="@string/username"
         android:textStyle="bold"
+        android:textColor="@color/white"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:id="@+id/lblUsername"/>
@@ -30,10 +32,13 @@
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_below="@+id/lblUsername"
         android:background="@drawable/shape_textbox"
+        android:textColorHint="@color/white_grey"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_5sdp"
+
         android:padding="@dimen/_10sdp"
+        android:textColor="@color/white"
         android:hint="@string/createUsername"
         android:inputType="text" />
 
@@ -41,6 +46,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/password"
+        android:textColor="@color/white"
+
         android:textStyle="bold"
         android:layout_below="@+id/etRegisterUsername"
         android:layout_marginHorizontal="@dimen/_10sdp"
@@ -52,6 +59,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/lblPassword"
         android:layout_centerHorizontal="true"
+        android:textColor="@color/white"
+
+        android:textColorHint="@color/white_grey"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginBottom="@dimen/_10sdp"
@@ -65,6 +75,7 @@
         android:layout_height="wrap_content"
         android:text="@string/phonenumber"
         android:textStyle="bold"
+        android:textColor="@color/white"
         android:layout_below="@+id/etRegisterPassword"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:id="@+id/lblPhoneNumber"/>
@@ -77,9 +88,11 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginHorizontal="@dimen/_10sdp"
+        android:textColor="@color/white"
         android:layout_marginBottom="@dimen/_10sdp"
         android:background="@drawable/shape_textbox"
         android:hint="@string/createPhoneNumber"
+        android:textColorHint="@color/white_grey"
         android:inputType="number"
         android:padding="@dimen/_10sdp" />
 
@@ -87,132 +100,129 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/province"
+        android:textColor="@color/white"
         android:textStyle="bold"
         android:layout_below="@+id/etRegisterPhoneNumber"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:id="@+id/lblProvince"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+
+    <EditText
         android:id="@+id/etProvince"
+        android:layout_width="match_parent"
+        android:textColor="@color/white"
+        android:padding="@dimen/_10sdp"
+        android:inputType="none"
+        android:hint="@string/chooseProvince"
+        android:textColorHint="@color/white_grey"
+        android:focusableInTouchMode="false"
         android:layout_below="@+id/lblProvince"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_10sdp"
-        android:padding="@dimen/_10sdp"
         android:background="@drawable/shape_textbox"
-        android:orientation="horizontal">
-
-    <TextView
-        android:id="@+id/tvProvince"
-        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAlignment="textStart"
         android:layout_weight="5"
        />
-    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/kabupaten"
+        android:textColor="@color/white"
         android:textStyle="bold"
         android:layout_below="@+id/etProvince"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:id="@+id/lblKabupaten"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/etKabupaten"
-        android:layout_below="@+id/lblKabupaten"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:padding="@dimen/_10sdp"
-        android:background="@drawable/shape_textbox"
-        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tvKabupaten"
-            android:layout_width="0dp"
+
+        <EditText
+            android:id="@+id/etKabupaten"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="textStart"
-            android:layout_weight="5"
+            android:layout_below="@+id/lblKabupaten"
+            android:textColor="@color/white"
+            android:inputType="none"
+            android:hint="@string/chooseKabupaten"
+            android:textColorHint="@color/white_grey"
+            android:focusableInTouchMode="false"
+            android:background="@drawable/shape_textbox"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:padding="@dimen/_10sdp"
             />
-    </LinearLayout>
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/city"
+        android:textColor="@color/white"
         android:textStyle="bold"
         android:layout_below="@+id/etKabupaten"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:id="@+id/lblCity"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/etCity"
-        android:layout_below="@+id/lblCity"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:padding="@dimen/_10sdp"
-        android:background="@drawable/shape_textbox"
-        android:orientation="horizontal">
-
-        <Spinner
-            android:id="@+id/spCity"
-            android:layout_width="0dp"
+        <EditText
+            android:id="@+id/etCity"
+            android:layout_below="@+id/lblCity"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:padding="@dimen/_10sdp"
+            android:hint="@string/chooseCity"
+            android:textColorHint="@color/white_grey"
+            android:textColor="@color/white"
+            android:focusableInTouchMode="false"
+            android:background="@drawable/shape_textbox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="textStart"
-            android:layout_weight="5"
             />
-    </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/village"
                 android:textStyle="bold"
+                android:textColor="@color/white"
                 android:layout_below="@+id/etCity"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:id="@+id/lblVillage"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/etVillage"
-                android:layout_below="@+id/lblVillage"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:padding="@dimen/_10sdp"
-                android:background="@drawable/shape_textbox"
-                android:orientation="horizontal">
 
-                <Spinner
-                    android:id="@+id/spVillage"
-                    android:layout_width="0dp"
+                <EditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/etVillage"
+                    android:layout_below="@+id/lblVillage"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:background="@drawable/shape_textbox"
                     android:layout_height="wrap_content"
                     android:textAlignment="textStart"
-                    android:layout_weight="5"
+                    android:textColor="@color/white"
+                    android:hint="@string/chooseVillage"
+                    android:textColorHint="@color/white_grey"
+                    android:focusableInTouchMode="false"
                     />
 
-            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/zipcode"
+                android:textColor="@color/white"
+
                 android:textStyle="bold"
                 android:layout_below="@+id/etVillage"
                 android:layout_marginHorizontal="@dimen/_10sdp"
@@ -226,11 +236,12 @@
                     android:textAlignment="textStart"
                     android:layout_weight="5"
                     android:inputType="none"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:layout_below="@+id/lblPostalCode"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
+                    android:focusableInTouchMode="false"
                     android:background="@drawable/shape_textbox"
                     android:layout_centerHorizontal="true"
                     android:padding="@dimen/_10sdp"
@@ -245,7 +256,7 @@
                 android:id="@+id/lbl_profile_image"
                 android:layout_below="@+id/tvPostalCode"
                 android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:gravity="center"
                 android:text="Set your Profile Image here !"/>
 
@@ -264,6 +275,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ivCameraTakeAPicture"
         android:text="Register"
+        android:backgroundTint="@color/blue_discord"
         android:id="@+id/btnRegister"
         android:textAllCaps="false"
         android:layout_marginStart="@dimen/_10sdp"
