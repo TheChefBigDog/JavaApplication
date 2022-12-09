@@ -3,6 +3,7 @@
     <style name="Theme.JavaApplication" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary_color</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <item name="colorPrimaryVariant">@color/primary_color_variant</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->

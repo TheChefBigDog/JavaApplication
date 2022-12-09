@@ -2,6 +2,7 @@ package com.example.javaapplication.Activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -25,6 +26,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -64,6 +67,8 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
     @BindView(R.id.etCity) EditText tvCity;
     @BindView(R.id.etVillage) EditText tvVillage;
     @BindView(R.id.tvPostalCode) TextView tvPostalCode;
+    RecyclerView rvProvinsi;
+    ProgressBar pbDialog;
     private int CODE_CAMERA_REQUEST = 1;
     SQLiteDatabase database;
     DBHelper dbHelper;
@@ -75,12 +80,14 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
     ProvinsiAdapter provinsiAdapter;
     String imageString, locationType, postalTypeRegistrasi, lookUpIdRegistrasi;
     LinearLayoutManager linearLayoutManager;
-
+    Dialog dialog;
+    Animation shake;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
         getSupportActionBar().setTitle("Register");
@@ -91,6 +98,8 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
         tvCity.setKeyListener(null);
         tvVillage.setKeyListener(null);
         tvPostalCode.setKeyListener(null);
+        shake = AnimationUtils.loadAnimation(RegisterActivity.this, R.anim.shake);
+        provinceInterface = ProvinceUtils.getListProvince(this);
         setProvinceList(postalTypeRegistrasi, lookUpIdRegistrasi);
         ivCameraTakeAPicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +108,6 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
                 startActivityForResult(takePictureIntent, CODE_CAMERA_REQUEST);
             }
         });
-        provinceInterface = ProvinceUtils.getListProvince(this);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,51 +146,63 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
         tvProvince.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                locationType = "province";
-                final Dialog dialog = new Dialog(RegisterActivity.this);
-                LayoutInflater inflater = getLayoutInflater();
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCancelable(true);
-                View viewDialog = inflater.inflate(R.layout.custom_dialog, null);
-                dialog.setContentView(viewDialog);
-                RecyclerView rvProvinsi = viewDialog.findViewById(R.id.rv_provinces);
-                ProgressBar pbDialog = viewDialog.findViewById(R.id.pb_dialog);
-                TextView tvtitle = viewDialog.findViewById(R.id.tv_title);
-                tvtitle.setText("PROVINCES");
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                provinceInterface.getProvince(requestLocationBody).enqueue(new Callback<ProvinceModel>() {
-                    @Override
-                    public void onResponse(Call<ProvinceModel> call, Response<ProvinceModel> response) {
-                        if(response.isSuccessful()) {
-                            if(response.body().getResponseStatus().equals("OK")) {
-                                pbDialog.setVisibility(View.GONE);
-                                provinceItemArrayList = new ArrayList<>();
-                                provinceItemArrayList = response.body().getList();
-                                provinsiAdapter = new ProvinsiAdapter(
-                                        provinceItemArrayList,
-                                        kabupatenArrayList,
-                                        listKotaItems,
-                                        listVillageItems,
-                                        RegisterActivity.this,
-                                        RegisterActivity.this,
-                                        dialog, locationType);
-                                rvProvinsi.setAdapter(provinsiAdapter);
-                                linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-                                rvProvinsi.setLayoutManager(linearLayoutManager);
-                                setKabupatenList(lookUpId, postalType);
+                if (tvKabupaten.getText().length() != 0 || tvCity.getText().length() != 0 || tvVillage.getText().length() != 0 || tvPostalCode.getText().length() != 0) {
+                        tvKabupaten.setText("");
+                        tvVillage.setText("");
+                        tvCity.setText("");
+                        tvPostalCode.setText("");
+                        tvKabupaten.startAnimation(shake);
+                        tvVillage.startAnimation(shake);
+                        tvCity.startAnimation(shake);
+                        tvPostalCode.startAnimation(shake);
+                }
+                    locationType = "province";
+                    dialog = new Dialog(RegisterActivity.this);
+                    LayoutInflater inflater = getLayoutInflater();
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setCancelable(true);
+                    View viewDialog = inflater.inflate(R.layout.custom_dialog, null);
+                    dialog.setContentView(viewDialog);
+                    rvProvinsi = viewDialog.findViewById(R.id.rv_provinces);
+                    pbDialog = viewDialog.findViewById(R.id.pb_dialog);
+                    TextView tvtitle = viewDialog.findViewById(R.id.tv_title);
+                    tvtitle.setText("PROVINCES");
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                    provinceInterface.getProvince(requestLocationBody).enqueue(new Callback<ProvinceModel>() {
+                        @Override
+                        public void onResponse(Call<ProvinceModel> call, Response<ProvinceModel> response) {
+                            if (response.isSuccessful()) {
+                                if (response.body().getResponseStatus().equals("OK")) {
+                                    pbDialog.setVisibility(View.GONE);
+                                    provinceItemArrayList = new ArrayList<>();
+                                    provinceItemArrayList = response.body().getList();
+                                    provinsiAdapter = new ProvinsiAdapter(
+                                            provinceItemArrayList,
+                                            kabupatenArrayList,
+                                            listKotaItems,
+                                            listVillageItems,
+                                            RegisterActivity.this,
+                                            RegisterActivity.this,
+                                            dialog, locationType);
+                                    rvProvinsi.setAdapter(provinsiAdapter);
+                                    linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+                                    rvProvinsi.setLayoutManager(linearLayoutManager);
+                                }
                             }
                         }
-                    }
-                    @Override
-                    public void onFailure(Call<ProvinceModel> call, Throwable t) {
-                        pbDialog.setVisibility(View.GONE);
-                        dialog.dismiss();
-                        Toast.makeText(RegisterActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                dialog.show();
-            }
+
+                        @Override
+                        public void onFailure(Call<ProvinceModel> call, Throwable t) {
+                            pbDialog.setVisibility(View.GONE);
+                            dialog.dismiss();
+                            Toast.makeText(RegisterActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    dialog.show();
+                }
+//            }
         });
+        setKabupatenList(lookUpId, postalType);
     }
 
     private void setKabupatenList(String selectedID, String selectedPostalType) {
@@ -194,7 +214,16 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
             tvKabupaten.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (tvCity.getText().length() != 0 || tvVillage.getText().length() != 0 || tvPostalCode.getText().length() != 0) {
+                        tvVillage.setText("");
+                        tvCity.setText("");
+                        tvPostalCode.setText("");
+                        tvVillage.startAnimation(shake);
+                        tvCity.startAnimation(shake);
+                        tvPostalCode.startAnimation(shake);
+                    }
                     locationType = "district";
+                    Log.e("TAG", "onClick: " + tvProvince.getText().toString());
                     if(!tvProvince.getText().toString().equals("")){
                     final Dialog dialog = new Dialog(RegisterActivity.this);
                     LayoutInflater inflater = getLayoutInflater();
@@ -244,6 +273,7 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
             }
 
             });
+        setKotaList(selectedPostalType, selectedID);
 
     }
 
@@ -258,6 +288,12 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
             @Override
             public void onClick(View v) {
                 locationType = "city";
+                if (tvVillage.getText().length() != 0 || tvPostalCode.getText().length() != 0) {
+                    tvVillage.setText("");
+                    tvPostalCode.setText("");
+                    tvVillage.startAnimation(shake);
+                    tvPostalCode.startAnimation(shake);
+                }
                 if(!tvKabupaten.getText().toString().equals("")){
                     final Dialog dialog = new Dialog(RegisterActivity.this);
                     LayoutInflater inflater = getLayoutInflater();
@@ -306,6 +342,7 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
             }
 
         });
+        setVillageList(idKabupatenInstasiSpinner, selectedKabupatenInstansiType);
     }
 
     private void setVillageList(String lookUpId, String postalType) {

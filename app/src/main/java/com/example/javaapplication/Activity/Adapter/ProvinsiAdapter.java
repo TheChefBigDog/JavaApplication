@@ -91,13 +91,13 @@ public class ProvinsiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             case ITEM:
                 final ProvinsiHolder provinsiHolder = (ProvinsiHolder) holder;
                 if(locationType.equals("province")){
-                    provinsiHolder.tvProvinsiNama.setText(listItemArrayList.get(position).getName());
+                    provinsiHolder.tvProvinsiNama.setText(listItemArrayList.get(position -1).getName());
                     provinsiHolder.lnrCvProvinsi.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             locationType = "province";
                             pCallbackk.getProvinsi(listItemArrayList.get(position).getName(),
-                                    listItemArrayList.get(position).getPostalType(),
+                                    listItemArrayList.get(position ).getPostalType(),
                                     listItemArrayList.get(position).getLookupId(),
                                     locationType,
                                     null);
@@ -105,7 +105,7 @@ public class ProvinsiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         }
                     });
                 }else if(locationType.equals("district")){
-                    provinsiHolder.tvProvinsiNama.setText(listItemKabupatens.get(position).getName());
+                    provinsiHolder.tvProvinsiNama.setText(listItemKabupatens.get(position -1).getName());
                     provinsiHolder.lnrCvProvinsi.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -119,12 +119,12 @@ public class ProvinsiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         }
                     });
                 }else if(locationType.equals("city")){
-                    provinsiHolder.tvProvinsiNama.setText(listKotaItems.get(position).getName());
+                    provinsiHolder.tvProvinsiNama.setText(listKotaItems.get(position -1).getName());
                     provinsiHolder.lnrCvProvinsi.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             locationType = "city";
-                            pCallbackk.getProvinsi(listKotaItems.get(position).getName(),
+                            pCallbackk.getProvinsi(listKotaItems.get(position - 1).getName(),
                                     listKotaItems.get(position).getPostalType(),
                                     listKotaItems.get(position).getLookupId(),
                                     locationType,
@@ -138,7 +138,7 @@ public class ProvinsiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         @Override
                         public void onClick(View v) {
                             locationType = "village";
-                            pCallbackk.getProvinsi(villageListItemArrayList.get(position).getName(),
+                            pCallbackk.getProvinsi(villageListItemArrayList.get(position - 1).getName(),
                                     villageListItemArrayList.get(position).getPostalType(),
                                     villageListItemArrayList.get(position).getLookupId(),
                                     locationType,

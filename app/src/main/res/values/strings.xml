@@ -15,5 +15,6 @@
     <string name="chooseKabupaten">Choose your District</string>
     <string name="chooseCity">Choose your City</string>
     <string name="chooseVillage">Choose your SubDistrict</string>
+    <string name="chooseZipCode">Choose your Zip Code</string>
     <string name="createUsername">Create your Username</string>
 </resources>

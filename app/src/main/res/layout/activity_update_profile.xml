@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary_color"
     tools:context=".Activity.UpdateProfileActivity">
 
 
@@ -30,14 +31,17 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:text="Username"
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/et_username"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
                     android:inputType="text"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white_grey"
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -70,7 +74,7 @@
 
                         <EditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="60dp"
                             android:layout_marginTop="@dimen/_5sdp"
                             android:layout_marginEnd="@dimen/_10sdp"
                             android:layout_below="@+id/lbl_pemerintah_propinsi"
@@ -78,6 +82,8 @@
                             android:background="@drawable/shape_textbox"
                             android:textAlignment="textStart"
                             android:padding="@dimen/_10sdp"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white_grey"
                             android:hint="Update your Phone Number"
                             android:id="@+id/et_phone_number"/>
 
@@ -104,17 +110,17 @@
                         android:textStyle="bold" />
 
 
-                        <TextView
+                        <Spinner
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="60dp"
                             android:textAlignment="textStart"
-                            android:padding="@dimen/_10sdp"
+                            android:padding="@dimen/_5sdp"
                             android:layout_marginTop="@dimen/_5sdp"
                             android:layout_marginEnd="@dimen/_10sdp"
                             android:layout_marginStart="@dimen/_10sdp"
                             android:background="@drawable/shape_textbox"
                             android:layout_below="@+id/lbl_provinsi"
-                            android:id="@+id/tv_provinsi"/>
+                            android:id="@+id/sp_provinsi"/>
 
 
 
@@ -141,9 +147,9 @@
 
 
 
-                        <TextView
+                        <Spinner
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="60dp"
                             android:textAlignment="textStart"
                             android:padding="@dimen/_10sdp"
                             android:layout_marginTop="@dimen/_5sdp"
@@ -151,7 +157,7 @@
                             android:layout_marginStart="@dimen/_10sdp"
                             android:background="@drawable/shape_textbox"
                             android:layout_below="@+id/lbl_kabupaten"
-                            android:id="@+id/tv_kabupaten"/>
+                            android:id="@+id/sp_kabupaten"/>
 
 
                 </RelativeLayout>
@@ -177,7 +183,7 @@
 
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="60dp"
                             android:textAlignment="textStart"
                             android:padding="@dimen/_10sdp"
                             android:layout_marginTop="@dimen/_5sdp"
@@ -212,7 +218,7 @@
 
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="60dp"
                             android:textAlignment="textStart"
                             android:layout_marginTop="@dimen/_5sdp"
                             android:layout_marginEnd="@dimen/_10sdp"
@@ -250,8 +256,9 @@
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:textAlignment="textStart"
+                        android:gravity="center"
                         android:background="@drawable/shape_textbox"
                         android:layout_below="@+id/lbl_kode_pos"
                         android:hint="Update Zip Code"
@@ -276,6 +283,7 @@
         android:layout_height="wrap_content"
         android:text="Update"
         android:textColor="@color/white"
+        android:backgroundTint="@color/blue_discord"
         android:layout_marginEnd="20dp"
         android:textAllCaps="false"
         android:layout_alignParentBottom="true"

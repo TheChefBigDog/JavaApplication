@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
             userModel.setKota(c.getString(c.getColumnIndex(DBHelper.KOTA_COL)));
             userModel.setJalan(c.getString(c.getColumnIndex(DBHelper.JALAN_COL)));
             userModel.setZipCode(c.getString(c.getColumnIndex(DBHelper.ZIP_CODE_COL)));
+            userModel.setImageString(c.getString(c.getColumnIndex(DBHelper.IMAGE_STRING_COL)));
             Log.e("TAG", "onCreate: " + userModel.getName());
             tvName.setText(userModel.getName());
             tvPhoneNumber.setText(userModel.getPhoneNumber());
@@ -78,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
             tvKota.setText(userModel.getKota());
             tvJalan.setText(userModel.getJalan());
             tvKodePos.setText(userModel.getZipCode());
+            Bitmap bm = BitmapFactory.decodeFile(userModel.getImageString());
+            cvProfile.setImageBitmap(bm);
+        }else{
+            Toast.makeText(this, "User is not existed yet", Toast.LENGTH_SHORT).show();
         }
 //        if(c.getCount() > 0){
 //            c.moveToFirst();
@@ -102,8 +107,7 @@ public class MainActivity extends AppCompatActivity {
 //        tvKota.setText(kota);
 //        tvJalan.setText(jalan);
 //        tvKodePos.setText(zipcode);
-        Bitmap bm = BitmapFactory.decodeFile(imageString);
-        cvProfile.setImageBitmap(bm);
+
         updateProfile();
         logOut();
     }
