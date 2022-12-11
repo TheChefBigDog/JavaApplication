@@ -13,6 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textColor="@color/white"
         android:gravity="center"
         android:id="@+id/tv_city_dialog"
         android:layout_weight="1"

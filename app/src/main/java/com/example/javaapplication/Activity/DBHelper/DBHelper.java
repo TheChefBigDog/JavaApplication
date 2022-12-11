@@ -58,7 +58,7 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addName(String name, String pass, String phone, String provinsi, String kota, String kabupaten, String jalan, String zipCode, String imageString, int status){
+    public void addName(String name, String pass, String phone, String provinsi, String kabupaten, String kota, String jalan, String zipCode, String imageString, int status){
         ContentValues values = new ContentValues();
         values.put(NAME_COl, name);
         values.put(PASS_COL, pass);

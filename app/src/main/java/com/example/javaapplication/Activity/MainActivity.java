@@ -59,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
         Log.e("TAG", "onCreate: " + user_id);
         Cursor c = database.rawQuery("SELECT * FROM " + DBHelper.TABLE_NAME +
                 " WHERE " + DBHelper.ID_COL + " = '" + user_id + "'",null);
-//        Cursor c = database.rawQuery(db.rawQuery("SELECT * from " + TABLE_NAME + " where " +
-//        COL_3+" =?", new String[]{"sarthaknegi94@yahoo.com"}););
         if(c.moveToFirst()){
             UserModel userModel = new UserModel();
             userModel.setName(c.getString(c.getColumnIndex(DBHelper.NAME_COl)));
@@ -84,30 +82,6 @@ public class MainActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this, "User is not existed yet", Toast.LENGTH_SHORT).show();
         }
-//        if(c.getCount() > 0){
-//            c.moveToFirst();
-//            UserModel userModel = new UserModel();
-//            userModel.setName(String.valueOf(c.getInt(c.getColumnIndex(DBHelper.NAME_COl))));
-//            Log.e("TAG", "onCreate: " + userModel.getName());
-//            tvName.setText(userModel.getName());
-//            c.close();
-//        }else{
-//
-//        }
-//        provinsi = pref.getString("_provinsi", "");
-//        kabupaten = pref.getString("_kabupaten", "");
-//        phonenumber = pref.getString("_phonenumber", "");
-//        kota = pref.getString("_kota", "");
-//        jalan = pref.getString("_jalan", "");
-//        zipcode = pref.getString("_zipcode", "");
-//        imageString = pref.getString("_imagestring", "");
-//        tvPhoneNumber.setText(phonenumber);
-//        tvProvinsi.setText(provinsi);
-//        tvKabupaten.setText(kabupaten);
-//        tvKota.setText(kota);
-//        tvJalan.setText(jalan);
-//        tvKodePos.setText(zipcode);
-
         updateProfile();
         logOut();
     }

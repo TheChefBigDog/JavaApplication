@@ -119,7 +119,9 @@
                             android:layout_marginEnd="@dimen/_10sdp"
                             android:layout_marginStart="@dimen/_10sdp"
                             android:background="@drawable/shape_textbox"
+
                             android:layout_below="@+id/lbl_provinsi"
+                            android:textColor="@color/white"
                             android:id="@+id/sp_provinsi"/>
 
 
@@ -181,7 +183,7 @@
                         android:textStyle="bold" />
 
 
-                        <TextView
+                        <Spinner
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:textAlignment="textStart"
@@ -191,7 +193,7 @@
                             android:layout_marginStart="@dimen/_10sdp"
                             android:background="@drawable/shape_textbox"
                             android:layout_below="@+id/lbl_kota"
-                            android:id="@+id/tv_kota"/>
+                            android:id="@+id/sp_kota"/>
 
 
 
@@ -210,13 +212,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
-                        android:text="Kelurahaan*"
+                        android:text="Kelurahan*"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:textColor="@color/md_grey_600"
                         android:textStyle="bold" />
 
 
-                        <TextView
+                        <Spinner
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:textAlignment="textStart"
@@ -226,7 +228,7 @@
                             android:layout_marginStart="@dimen/_10sdp"
                             android:background="@drawable/shape_textbox"
                             android:layout_below="@+id/lbl_keluarahaan"
-                            android:id="@+id/tv_kelurahaan"/>
+                            android:id="@+id/sp_village"/>
 
 
 
@@ -254,11 +256,12 @@
 
 
 
-                    <TextView
+                    <EditText
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:textAlignment="textStart"
-                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:focusableInTouchMode="false"
                         android:background="@drawable/shape_textbox"
                         android:layout_below="@+id/lbl_kode_pos"
                         android:hint="Update Zip Code"

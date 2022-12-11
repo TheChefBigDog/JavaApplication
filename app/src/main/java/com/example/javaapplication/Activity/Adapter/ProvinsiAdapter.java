@@ -84,8 +84,10 @@ public class ProvinsiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     placeHolder.tvCityDialog.setText("Please Choose your Desired Province");
                 }else if(locationType.equals("district")){
                     placeHolder.tvCityDialog.setText("Please Choose your Desired Districts");
-                }else{
+                }else if(locationType.equals("city")){
                     placeHolder.tvCityDialog.setText("Please Choose your Desired City");
+                }else{
+                    placeHolder.tvCityDialog.setText("Please Choose your Desired Village");
                 }
             break;
             case ITEM:
@@ -96,9 +98,9 @@ public class ProvinsiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         @Override
                         public void onClick(View v) {
                             locationType = "province";
-                            pCallbackk.getProvinsi(listItemArrayList.get(position).getName(),
-                                    listItemArrayList.get(position ).getPostalType(),
-                                    listItemArrayList.get(position).getLookupId(),
+                            pCallbackk.getProvinsi(listItemArrayList.get(position - 1).getName(),
+                                    listItemArrayList.get(position - 1).getPostalType(),
+                                    listItemArrayList.get(position - 1).getLookupId(),
                                     locationType,
                                     null);
                             cmDialogFrag.dismiss();
@@ -110,9 +112,9 @@ public class ProvinsiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         @Override
                         public void onClick(View v) {
                             locationType = "district";
-                            pCallbackk.getProvinsi(listItemKabupatens.get(position).getName(),
-                                    listItemKabupatens.get(position).getPostalType(),
-                                    listItemKabupatens.get(position).getLookupId(),
+                            pCallbackk.getProvinsi(listItemKabupatens.get(position - 1).getName(),
+                                    listItemKabupatens.get(position - 1).getPostalType(),
+                                    listItemKabupatens.get(position - 1).getLookupId(),
                                     locationType,
                                     null);
                             cmDialogFrag.dismiss();
@@ -125,24 +127,24 @@ public class ProvinsiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         public void onClick(View v) {
                             locationType = "city";
                             pCallbackk.getProvinsi(listKotaItems.get(position - 1).getName(),
-                                    listKotaItems.get(position).getPostalType(),
-                                    listKotaItems.get(position).getLookupId(),
+                                    listKotaItems.get(position - 1).getPostalType(),
+                                    listKotaItems.get(position - 1).getLookupId(),
                                     locationType,
                                     null);
                             cmDialogFrag.dismiss();
                         }
                     });
                 }else{
-                    provinsiHolder.tvProvinsiNama.setText(villageListItemArrayList.get(position).getName());
+                    provinsiHolder.tvProvinsiNama.setText(villageListItemArrayList.get(position - 1).getName());
                     provinsiHolder.lnrCvProvinsi.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             locationType = "village";
                             pCallbackk.getProvinsi(villageListItemArrayList.get(position - 1).getName(),
-                                    villageListItemArrayList.get(position).getPostalType(),
-                                    villageListItemArrayList.get(position).getLookupId(),
+                                    villageListItemArrayList.get(position - 1).getPostalType(),
+                                    villageListItemArrayList.get(position - 1).getLookupId(),
                                     locationType,
-                                    villageListItemArrayList.get(position).getZipCode());
+                                    villageListItemArrayList.get(position - 1).getZipCode());
                             cmDialogFrag.dismiss();
                         }
                     });
@@ -156,13 +158,13 @@ public class ProvinsiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemCount() {
         if(locationType.equals("province")) {
-            return listItemArrayList.size();
+            return listItemArrayList.size() + 1;
         }else if(locationType.equals("district")){
-            return listItemKabupatens.size();
-        }else if(locationType.equals("city")){
-            return listKotaItems.size();
+            return listItemKabupatens.size() + 1;
+        }else if(locationType.equals("city") ){
+            return listKotaItems.size() + 1;
         }else{
-            return villageListItemArrayList.size();
+            return villageListItemArrayList.size() + 1;
 
         }
     }
