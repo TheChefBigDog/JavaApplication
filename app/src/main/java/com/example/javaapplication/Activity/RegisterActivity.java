@@ -223,7 +223,6 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
                         tvPostalCode.startAnimation(shake);
                     }
                     locationType = "district";
-                    Log.e("TAG", "onClick: " + tvProvince.getText().toString());
                     if(!tvProvince.getText().toString().equals("")){
                     final Dialog dialog = new Dialog(RegisterActivity.this);
                     LayoutInflater inflater = getLayoutInflater();
@@ -236,14 +235,14 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
                     TextView tvtitle = viewDialog.findViewById(R.id.tv_title);
                     tvtitle.setText("DISTRICTS");
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                    provinceInterface.getKabupaten(requestLocationBody).enqueue(new Callback<KabupatenModel>() {
+                    provinceInterface.getProvince(requestLocationBody).enqueue(new Callback<ProvinceModel>() {
                         @Override
-                        public void onResponse(Call<KabupatenModel> call, Response<KabupatenModel> response) {
+                        public void onResponse(Call<ProvinceModel> call, Response<ProvinceModel> response) {
                             if (response.isSuccessful()) {
                                 if(response.body().getResponseStatus().equals("OK")) {
                                     pbDialog.setVisibility(View.GONE);
-                                    kabupatenArrayList = new ArrayList<>();
-                                    kabupatenArrayList = response.body().getList();
+                                    provinceItemArrayList = new ArrayList<>();
+                                    provinceItemArrayList = response.body().getList();
                                     provinsiAdapter = new ProvinsiAdapter(
                                             provinceItemArrayList,
                                             kabupatenArrayList,
@@ -261,7 +260,7 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
                         }
 
                         @Override
-                        public void onFailure(Call<KabupatenModel> call, Throwable t) {
+                        public void onFailure(Call<ProvinceModel> call, Throwable t) {
                             pbDialog.setVisibility(View.GONE);
                             Toast.makeText(RegisterActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
                         }
@@ -306,14 +305,14 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
                     TextView tvtitle = viewDialog.findViewById(R.id.tv_title);
                     tvtitle.setText("CITY");
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                    provinceInterface.getKota(requestLocationBody).enqueue(new Callback<KotaModel>() {
+                    provinceInterface.getProvince(requestLocationBody).enqueue(new Callback<ProvinceModel>() {
                         @Override
-                        public void onResponse(Call<KotaModel> call, Response<KotaModel> response) {
+                        public void onResponse(Call<ProvinceModel> call, Response<ProvinceModel> response) {
                             if(response.isSuccessful()){
                              if(response.body().getResponseStatus().equals("OK")){
                                  pbDialog.setVisibility(View.GONE);
-                                 listKotaItems = new ArrayList<>();
-                                 listKotaItems = response.body().getList();
+                                 provinceItemArrayList = new ArrayList<>();
+                                 provinceItemArrayList = response.body().getList();
                                  provinsiAdapter = new ProvinsiAdapter(
                                          provinceItemArrayList,
                                          kabupatenArrayList,
@@ -330,7 +329,7 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
                         }
 
                         @Override
-                        public void onFailure(Call<KotaModel> call, Throwable t) {
+                        public void onFailure(Call<ProvinceModel> call, Throwable t) {
                             pbDialog.setVisibility(View.GONE);
                             Toast.makeText(RegisterActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
                         }
@@ -340,7 +339,6 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
                     Toast.makeText(RegisterActivity.this, "District is still empty", Toast.LENGTH_SHORT).show();
                 }
             }
-
         });
         setVillageList(idKabupatenInstasiSpinner, selectedKabupatenInstansiType);
     }
@@ -365,16 +363,16 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
                     RecyclerView rvProvinsi = viewDialog.findViewById(R.id.rv_provinces);
                     ProgressBar pbDialog = viewDialog.findViewById(R.id.pb_dialog);
                     TextView tvtitle = viewDialog.findViewById(R.id.tv_title);
-                    tvtitle.setText("CITY");
+                    tvtitle.setText("VILLAGE");
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                    provinceInterface.getVillage(requestLocationBody).enqueue(new Callback<Village>() {
+                    provinceInterface.getProvince(requestLocationBody).enqueue(new Callback<ProvinceModel>() {
                         @Override
-                        public void onResponse(Call<Village> call, Response<Village> response) {
+                        public void onResponse(Call<ProvinceModel> call, Response<ProvinceModel> response) {
                             if(response.isSuccessful()){
                                 if(response.body().getResponseStatus().equals("OK")){
                                     pbDialog.setVisibility(View.GONE);
-                                    listVillageItems = new ArrayList<>();
-                                    listVillageItems = response.body().getList();
+                                    provinceItemArrayList = new ArrayList<>();
+                                    provinceItemArrayList = response.body().getList();
                                     provinsiAdapter = new ProvinsiAdapter(
                                             provinceItemArrayList,
                                             kabupatenArrayList,
@@ -391,7 +389,7 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
                         }
 
                         @Override
-                        public void onFailure(Call<Village> call, Throwable t) {
+                        public void onFailure(Call<ProvinceModel> call, Throwable t) {
 
                         }
                     });
@@ -469,13 +467,10 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
         lookUpIdRegistrasi = lookUpId;
         switch (locationType){
             case "province":
-                Log.e("TAG", "getProvinsi: " + " " + lookUpId + " " + locationType + " " + postalType);
                 tvProvince.setText(provinsi);
                 setKabupatenList(lookUpId, postalType);
-
                 break;
             case "district":
-                Log.e("TAG", "getDistrict: " + lookUpId + " " + locationType + " " + postalType);
                 tvKabupaten.setText(provinsi);
                 setKotaList(postalType, lookUpId);
                 break;

@@ -16,13 +16,4 @@ public interface ProvinceInterface {
     @POST("ops2/marketing/lookup/postal")
     Call<ProvinceModel> getProvince(@Body RequestLocationBody requestProvinceBody);
 
-    @POST("ops2/marketing/lookup/postal")
-    Call<KabupatenModel> getKabupaten(@Body RequestLocationBody requestLocationBody);
-
-    @POST("ops2/marketing/lookup/postal")
-    Call<KotaModel> getKota(@Body RequestLocationBody requestCityBody);
-
-    @POST("ops2/marketing/lookup/postal")
-    Call<Village> getVillage(@Body RequestLocationBody requestVillageBody);
-
 }

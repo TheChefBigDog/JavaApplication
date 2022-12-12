@@ -107,49 +107,48 @@ public class ProvinsiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         }
                     });
                 }else if(locationType.equals("district")){
-                    provinsiHolder.tvProvinsiNama.setText(listItemKabupatens.get(position -1).getName());
+                    provinsiHolder.tvProvinsiNama.setText(listItemArrayList.get(position -1).getName());
                     provinsiHolder.lnrCvProvinsi.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             locationType = "district";
-                            pCallbackk.getProvinsi(listItemKabupatens.get(position - 1).getName(),
-                                    listItemKabupatens.get(position - 1).getPostalType(),
-                                    listItemKabupatens.get(position - 1).getLookupId(),
+                            pCallbackk.getProvinsi(listItemArrayList.get(position - 1).getName(),
+                                    listItemArrayList.get(position - 1).getPostalType(),
+                                    listItemArrayList.get(position - 1).getLookupId(),
                                     locationType,
                                     null);
                             cmDialogFrag.dismiss();
                         }
                     });
                 }else if(locationType.equals("city")){
-                    provinsiHolder.tvProvinsiNama.setText(listKotaItems.get(position -1).getName());
+                    provinsiHolder.tvProvinsiNama.setText(listItemArrayList.get(position -1).getName());
                     provinsiHolder.lnrCvProvinsi.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             locationType = "city";
-                            pCallbackk.getProvinsi(listKotaItems.get(position - 1).getName(),
-                                    listKotaItems.get(position - 1).getPostalType(),
-                                    listKotaItems.get(position - 1).getLookupId(),
+                            pCallbackk.getProvinsi(listItemArrayList.get(position - 1).getName(),
+                                    listItemArrayList.get(position - 1).getPostalType(),
+                                    listItemArrayList.get(position - 1).getLookupId(),
                                     locationType,
                                     null);
                             cmDialogFrag.dismiss();
                         }
                     });
                 }else{
-                    provinsiHolder.tvProvinsiNama.setText(villageListItemArrayList.get(position - 1).getName());
+                    provinsiHolder.tvProvinsiNama.setText(listItemArrayList.get(position - 1).getName());
                     provinsiHolder.lnrCvProvinsi.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             locationType = "village";
-                            pCallbackk.getProvinsi(villageListItemArrayList.get(position - 1).getName(),
-                                    villageListItemArrayList.get(position - 1).getPostalType(),
-                                    villageListItemArrayList.get(position - 1).getLookupId(),
+                            pCallbackk.getProvinsi(listItemArrayList.get(position - 1).getName(),
+                                    listItemArrayList.get(position - 1).getPostalType(),
+                                    listItemArrayList.get(position - 1).getLookupId(),
                                     locationType,
-                                    villageListItemArrayList.get(position - 1).getZipCode());
+                                    listItemArrayList.get(position - 1).getZipCode());
                             cmDialogFrag.dismiss();
                         }
                     });
                 }
-
                 break;
         }
     }
@@ -157,16 +156,7 @@ public class ProvinsiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemCount() {
-        if(locationType.equals("province")) {
-            return listItemArrayList.size() + 1;
-        }else if(locationType.equals("district")){
-            return listItemKabupatens.size() + 1;
-        }else if(locationType.equals("city") ){
-            return listKotaItems.size() + 1;
-        }else{
-            return villageListItemArrayList.size() + 1;
-
-        }
+        return listItemArrayList.size() + 1;
     }
 
     @Override
@@ -180,7 +170,6 @@ public class ProvinsiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public class PlaceHolder extends RecyclerView.ViewHolder{
         TextView tvCityDialog;
-
         public PlaceHolder(@NonNull View itemView) {
             super(itemView);
             tvCityDialog = itemView.findViewById(R.id.tv_city_dialog);
@@ -189,15 +178,12 @@ public class ProvinsiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
     public class ProvinsiHolder extends RecyclerView.ViewHolder{
-
         TextView tvProvinsiNama;
         LinearLayout lnrCvProvinsi;
-
         public ProvinsiHolder(@NonNull View itemView) {
             super(itemView);
             tvProvinsiNama = itemView.findViewById(R.id.tv_nama_provinsi);
             lnrCvProvinsi = itemView.findViewById(R.id.lnr_cv_provinsi);
-
         }
     }
 }

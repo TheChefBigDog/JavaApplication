@@ -82,6 +82,7 @@
                             android:background="@drawable/shape_textbox"
                             android:textAlignment="textStart"
                             android:padding="@dimen/_10sdp"
+
                             android:textColor="@color/white"
                             android:textColorHint="@color/white_grey"
                             android:hint="Update your Phone Number"
@@ -110,19 +111,20 @@
                         android:textStyle="bold" />
 
 
-                        <Spinner
+                        <EditText
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:textAlignment="textStart"
                             android:padding="@dimen/_5sdp"
+                            android:paddingRight="@dimen/_5sdp"
                             android:layout_marginTop="@dimen/_5sdp"
                             android:layout_marginEnd="@dimen/_10sdp"
                             android:layout_marginStart="@dimen/_10sdp"
                             android:background="@drawable/shape_textbox"
-
+                            android:focusableInTouchMode="false"
                             android:layout_below="@+id/lbl_provinsi"
                             android:textColor="@color/white"
-                            android:id="@+id/sp_provinsi"/>
+                            android:id="@+id/et_provinsi"/>
 
 
 
@@ -149,7 +151,7 @@
 
 
 
-                        <Spinner
+                        <EditText
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:textAlignment="textStart"
@@ -159,7 +161,9 @@
                             android:layout_marginStart="@dimen/_10sdp"
                             android:background="@drawable/shape_textbox"
                             android:layout_below="@+id/lbl_kabupaten"
-                            android:id="@+id/sp_kabupaten"/>
+                            android:textColor="@color/white"
+                            android:focusableInTouchMode="false"
+                            android:id="@+id/et_kabupaten"/>
 
 
                 </RelativeLayout>
@@ -183,17 +187,19 @@
                         android:textStyle="bold" />
 
 
-                        <Spinner
+                        <EditText
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:textAlignment="textStart"
                             android:padding="@dimen/_10sdp"
+                            android:focusableInTouchMode="false"
+                            android:textColor="@color/white"
                             android:layout_marginTop="@dimen/_5sdp"
                             android:layout_marginEnd="@dimen/_10sdp"
                             android:layout_marginStart="@dimen/_10sdp"
                             android:background="@drawable/shape_textbox"
                             android:layout_below="@+id/lbl_kota"
-                            android:id="@+id/sp_kota"/>
+                            android:id="@+id/et_kota"/>
 
 
 
@@ -217,18 +223,18 @@
                         android:textColor="@color/md_grey_600"
                         android:textStyle="bold" />
 
-
-                        <Spinner
+                        <EditText
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:textAlignment="textStart"
                             android:layout_marginTop="@dimen/_5sdp"
                             android:layout_marginEnd="@dimen/_10sdp"
                             android:padding="@dimen/_10sdp"
+                            android:textColor="@color/white"
                             android:layout_marginStart="@dimen/_10sdp"
                             android:background="@drawable/shape_textbox"
                             android:layout_below="@+id/lbl_keluarahaan"
-                            android:id="@+id/sp_village"/>
+                            android:id="@+id/et_village"/>
 
 
 
