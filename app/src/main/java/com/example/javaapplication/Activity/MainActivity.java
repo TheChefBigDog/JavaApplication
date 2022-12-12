@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         cvProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, UpdateProfileActivity.class);
+                Intent intent = new Intent(MainActivity.this, UpdateProfileActivityRenew.class);
                 startActivity(intent);
             }
         });

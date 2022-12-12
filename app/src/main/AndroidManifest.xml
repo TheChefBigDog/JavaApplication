@@ -11,10 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JavaApplication">
         <activity android:name=".Activity.UpdateProfileActivity"></activity>
+        <activity android:name=".Activity.UpdateProfileActivityRenew"></activity>
         <activity android:name=".Activity.CheckUserActivity" />
         <activity android:name=".Activity.RegisterActivity" />
         <activity android:name=".Activity.LoginActivity" />
-        <activity android:name=".Activity.SplashScreen">
+        <activity android:name=".Activity.SplashScreen"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
