@@ -121,18 +121,11 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
                 String village = tvVillage.getText().toString();
                 String zipCode = tvPostalCode.getText().toString();
                 int registerStatus = 1;
-                Cursor c = database.rawQuery("SELECT * FROM " + DBHelper.TABLE_NAME +
-                        " WHERE " + DBHelper.NAME_COl + " = '" + names + "' ", null);
-                if(c.getCount() > 0){
-                    etRegisterUsername.setText("");
-                    etRegisterPassword.setText("");
-                    etRegisterPhoneNumber.setText("");
+                if(dbHelper.getUserByName(names) > 0){
                     Toast.makeText(RegisterActivity.this, "User Already Exist", Toast.LENGTH_SHORT).show();
-                    c.close();
                 }else{
                     dbHelper.addName(names, password , phonenumber, provinsi, kabupaten, kota, village, zipCode, imageString, registerStatus);
                     startActivity(intent);
-                    c.close();
                     dbHelper.close();
                 }
             }
@@ -142,20 +135,10 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
     private void setProvinceList(String postalType, String lookUpId) {
         RequestLocationBody requestLocationBody = new RequestLocationBody();
         requestLocationBody.setUsername("15040198");
-        requestLocationBody.setVersion("133");
+        requestLocationBody.setVersion("134");
         tvProvince.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (tvKabupaten.getText().length() != 0 || tvCity.getText().length() != 0 || tvVillage.getText().length() != 0 || tvPostalCode.getText().length() != 0) {
-                        tvKabupaten.setText("");
-                        tvVillage.setText("");
-                        tvCity.setText("");
-                        tvPostalCode.setText("");
-                        tvKabupaten.startAnimation(shake);
-                        tvVillage.startAnimation(shake);
-                        tvCity.startAnimation(shake);
-                        tvPostalCode.startAnimation(shake);
-                }
                     locationType = "province";
                     dialog = new Dialog(RegisterActivity.this);
                     LayoutInflater inflater = getLayoutInflater();
@@ -208,20 +191,12 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
     private void setKabupatenList(String selectedID, String selectedPostalType) {
         RequestLocationBody requestLocationBody = new RequestLocationBody();
         requestLocationBody.setUsername("15040198");
-        requestLocationBody.setVersion("133");
+        requestLocationBody.setVersion("134");
         requestLocationBody.setPostalId(selectedID);
         requestLocationBody.setPostalType(selectedPostalType);
             tvKabupaten.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (tvCity.getText().length() != 0 || tvVillage.getText().length() != 0 || tvPostalCode.getText().length() != 0) {
-                        tvVillage.setText("");
-                        tvCity.setText("");
-                        tvPostalCode.setText("");
-                        tvVillage.startAnimation(shake);
-                        tvCity.startAnimation(shake);
-                        tvPostalCode.startAnimation(shake);
-                    }
                     locationType = "district";
                     if(!tvProvince.getText().toString().equals("")){
                     final Dialog dialog = new Dialog(RegisterActivity.this);
@@ -280,19 +255,13 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
     private void setKotaList(String selectedKabupatenInstansiType, String idKabupatenInstasiSpinner) {
                 RequestLocationBody requestLocationBody = new RequestLocationBody();
                 requestLocationBody.setUsername("15040198");
-                requestLocationBody.setVersion("133");
+                requestLocationBody.setVersion("134");
                 requestLocationBody.setPostalId(idKabupatenInstasiSpinner);
                 requestLocationBody.setPostalType(selectedKabupatenInstansiType);
         tvCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 locationType = "city";
-                if (tvVillage.getText().length() != 0 || tvPostalCode.getText().length() != 0) {
-                    tvVillage.setText("");
-                    tvPostalCode.setText("");
-                    tvVillage.startAnimation(shake);
-                    tvPostalCode.startAnimation(shake);
-                }
                 if(!tvKabupaten.getText().toString().equals("")){
                     final Dialog dialog = new Dialog(RegisterActivity.this);
                     LayoutInflater inflater = getLayoutInflater();
@@ -346,7 +315,7 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
     private void setVillageList(String lookUpId, String postalType) {
         RequestLocationBody requestLocationBody = new RequestLocationBody();
         requestLocationBody.setUsername("15040198");
-        requestLocationBody.setVersion("133");
+        requestLocationBody.setVersion("134");
         requestLocationBody.setPostalId(lookUpId);
         requestLocationBody.setPostalType(postalType);
         tvVillage.setOnClickListener(new View.OnClickListener() {
@@ -467,14 +436,38 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
         lookUpIdRegistrasi = lookUpId;
         switch (locationType){
             case "province":
+                if (tvKabupaten.getText().length() != 0|| tvCity.getText().length() != 0 || tvVillage.getText().length() != 0 || tvPostalCode.getText().length() != 0) {
+                    tvVillage.setText("");
+                    tvKabupaten.setText("");
+                    tvCity.setText("");
+                    tvPostalCode.setText("");
+                    tvKabupaten.startAnimation(shake);
+                    tvVillage.startAnimation(shake);
+                    tvCity.startAnimation(shake);
+                    tvPostalCode.startAnimation(shake);
+                }
                 tvProvince.setText(provinsi);
                 setKabupatenList(lookUpId, postalType);
                 break;
             case "district":
+                if (tvCity.getText().length() != 0 || tvVillage.getText().length() != 0 || tvPostalCode.getText().length() != 0) {
+                    tvVillage.setText("");
+                    tvCity.setText("");
+                    tvPostalCode.setText("");
+                    tvVillage.startAnimation(shake);
+                    tvCity.startAnimation(shake);
+                    tvPostalCode.startAnimation(shake);
+                }
                 tvKabupaten.setText(provinsi);
                 setKotaList(postalType, lookUpId);
                 break;
             case "city":
+                if (tvVillage.getText().length() != 0 || tvPostalCode.getText().length() != 0) {
+                    tvVillage.setText("");
+                    tvPostalCode.setText("");
+                    tvVillage.startAnimation(shake);
+                    tvPostalCode.startAnimation(shake);
+                }
                 tvCity.setText(provinsi);
                 setVillageList(lookUpId, postalType);
                 break;

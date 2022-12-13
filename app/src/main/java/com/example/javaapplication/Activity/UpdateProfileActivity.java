@@ -68,7 +68,6 @@ public class UpdateProfileActivity extends AppCompatActivity implements  Provins
     String user_id, postalType, lookUpId;
     String provinsiPostalType, provinsiLookUpId;
     String kabupatenPostalType, kabupatenLookUpId;
-    String kotaPostalType, kotaLookUpId;
     LinearLayoutManager linearLayoutManager;
     SharedPreferences sp;
     String locationType, postalTypeRegistrasi, lookUpIdRegistrasi;
@@ -79,11 +78,12 @@ public class UpdateProfileActivity extends AppCompatActivity implements  Provins
     ArrayList<String> kabupatenStringItemArrayList = new ArrayList<>();
     ArrayList<String> kabupatenStringNameItemArrayList = new ArrayList<>();
     ArrayList<String> kabupatenStringPostalTypeItemArrayList = new ArrayList<>();
+    ArrayList<String> kotaStringItemArrayList = new ArrayList<>();
+    ArrayList<String> kotaStringNameItemArrayList = new ArrayList<>();
+    ArrayList<String> kotaStringPostalTypeItemArrayList = new ArrayList<>();
     ArrayList<ListItemKabupaten> kabupatenArrayList;
     ArrayList<ListKotaItem> listKotaItems;
     ArrayList<VillageListItem> listVillageItems;
-    ArrayList<String> kotaStringItemArrayList = new ArrayList<>();
-    ArrayList<String> kotaStringNameItemArrayList = new ArrayList<>();
     ArrayList<String> villageStringItemArrayList = new ArrayList<>();
     ArrayList<String> villageStringNameItemArrayList = new ArrayList<>();
     ProvinceInterface provinceInterface;
@@ -95,9 +95,10 @@ public class UpdateProfileActivity extends AppCompatActivity implements  Provins
     int index, index2, index3, index4;
     String indexOf, postalTypeProvince;
     String indexOf2, postalTypeKabupaten;
+    String indexOf3, postalTypeKota;
     UserModel userModel;
     ProvinsiAdapter provinsiAdapter;
-    String indexString, indexString2;
+    String indexString, indexString2, indexString3;
     @SuppressLint("Range")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,21 +138,18 @@ public class UpdateProfileActivity extends AppCompatActivity implements  Provins
             tvKodePos.setText(userModel.getZipCode());
             c.close();
         }
-        setProvinceList();
+        locationType = "province";
+        setProvinceList(locationType);
     }
 
-    private void setProvinceList() {
+    private void setProvinceList(String locationType) {
         RequestLocationBody requestLocationBody = new RequestLocationBody();
         requestLocationBody.setUsername("15040198");
-        requestLocationBody.setVersion("133");
+        requestLocationBody.setVersion("134");
+
         provinceInterface.getProvince(requestLocationBody).enqueue(new Callback<ProvinceModel>() {
             @Override
             public void onResponse(Call<ProvinceModel> call, Response<ProvinceModel> response) {
-//                etProvinsi.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-
-                        locationType = "province";
                         dialog = new Dialog(UpdateProfileActivity.this);
                         LayoutInflater inflater = getLayoutInflater();
                         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -179,6 +177,10 @@ public class UpdateProfileActivity extends AppCompatActivity implements  Provins
                                 rvProvinsi.setAdapter(provinsiAdapter);
                                 linearLayoutManager = new LinearLayoutManager(getApplicationContext());
                                 rvProvinsi.setLayoutManager(linearLayoutManager);
+                                provinceStringItemArrayList = new ArrayList<>();
+                                provinceStringNameItemArrayList = new ArrayList<>();
+                                provinceStringPostalTypeItemArrayList = new ArrayList<>();
+
                                 for (ListItem listItem : response.body().getList()){
                                     provinceStringItemArrayList.add(listItem.getLookupId());
                                     provinceStringNameItemArrayList.add(listItem.getName());
@@ -194,7 +196,6 @@ public class UpdateProfileActivity extends AppCompatActivity implements  Provins
                                 }
                                 rvProvinsi.getLayoutManager().scrollToPosition(index + 1);
                                 provinceStringNameItemArrayList.clear();
-                                Log.e("TAG", "setProvinceList: " + lookUpIdRegistrasi + " " + postalTypeRegistrasi + " " + indexOf + 1);
                             }
                         }
 
@@ -226,11 +227,10 @@ public class UpdateProfileActivity extends AppCompatActivity implements  Provins
     private void setKabupatenList(String lookUpId, String postalType) {
         RequestLocationBody requestLocationBody = new RequestLocationBody();
         requestLocationBody.setUsername("15040198");
-        requestLocationBody.setVersion("133");
+        requestLocationBody.setVersion("134");
         requestLocationBody.setPostalId(lookUpId);
         requestLocationBody.setPostalType(postalType);
         locationType = "district";
-
         provinceInterface.getProvince(requestLocationBody).enqueue(new Callback<ProvinceModel>() {
             @Override
             public void onResponse(Call<ProvinceModel> call, Response<ProvinceModel> response) {
@@ -277,7 +277,9 @@ public class UpdateProfileActivity extends AppCompatActivity implements  Provins
                                     }
                                 }
                                 rvProvinsi.getLayoutManager().scrollToPosition(index2 + 1);
+                                kabupatenStringItemArrayList.clear();
                                 kabupatenStringNameItemArrayList.clear();
+                                kabupatenStringPostalTypeItemArrayList.clear();
                             }
                         }
 
@@ -290,6 +292,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements  Provins
                                     etKota.setText("");
                                     tvKodePos.setText("");
                                 }
+                                setKotaList(indexOf2, postalTypeKabupaten);
                                 dialog.show();
                             }
                         });
@@ -300,156 +303,95 @@ public class UpdateProfileActivity extends AppCompatActivity implements  Provins
 
             @Override
             public void onFailure(Call<ProvinceModel> call, Throwable t) {
+                pbDialog.setVisibility(View.GONE);
                 Toast.makeText(UpdateProfileActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
             }
         });
-//        final Dialog dialog = new Dialog(UpdateProfileActivity.this);
-//        LayoutInflater inflater = getLayoutInflater();
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialog.setCancelable(false);
-//        View viewDialog = inflater.inflate(R.layout.custom_dialog, null);
-//        dialog.setContentView(viewDialog);
-//        rvProvinsi = viewDialog.findViewById(R.id.rv_provinces);
-//        pbDialog = viewDialog.findViewById(R.id.pb_dialog);
-//        TextView tvtitle = viewDialog.findViewById(R.id.tv_title);
-//        tvtitle.setText("DISTRICTS");
-//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-//        provinceInterface.getProvince(requestLocationBody).enqueue(new Callback<ProvinceModel>() {
-//            @Override
-//            public void onResponse(Call<ProvinceModel> call, Response<ProvinceModel> response) {
-//                if (response.isSuccessful()) {
-//                    if(response.body().getResponseStatus().equals("OK")) {
-//                        pbDialog.setVisibility(View.GONE);
-//                        provinceItemArrayList = new ArrayList<>();
-//                        provinceItemArrayList = response.body().getList();
-//
-//                        for (ListItem listItem : response.body().getList()){
-//                            kabupatenStringNameItemArrayList.add(listItem.getName());
-//                            kabupatenStringPostalTypeItemArrayList.add(listItem.getPostalType());
-//                            kabupatenStringItemArrayList.add(listItem.getLookupId());
-//                        }
-//                        for(int i = 0 ; i < kabupatenStringNameItemArrayList.size() ; i++){
-//                            if(kabupatenStringNameItemArrayList.get(i).equals(userModel.getKabupaten())){
-//                                indexString2 = kabupatenStringNameItemArrayList.get(i).toString();
-//                                indexOf2 = kabupatenStringItemArrayList.get(i).toString();
-//                                postalTypeKabupaten = kabupatenStringPostalTypeItemArrayList.get(i).toString();
-//                                index2 = i;
-//                            }
-//                        }
-////                        rvProvinsi.getLayoutManager().scrollToPosition(index2 + 1);
-//                        kabupatenStringNameItemArrayList.clear();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ProvinceModel> call, Throwable t) {
-//                pbDialog.setVisibility(View.GONE);
-//                Toast.makeText(UpdateProfileActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        etKabupaten.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                locationType = "district";
-//                if(!etProvinsi.getText().toString().equals("")){
-//                    provinsiAdapter = new ProvinsiAdapter(
-//                            provinceItemArrayList,
-//                            kabupatenArrayList,
-//                            listKotaItems,
-//                            listVillageItems,
-//                            UpdateProfileActivity.this,
-//                            UpdateProfileActivity.this,
-//                            dialog, locationType);
-//
-//                    rvProvinsi.setAdapter(provinsiAdapter);
-//                    linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-//                    rvProvinsi.setLayoutManager(linearLayoutManager);
-//                    dialog.show();
-//                }else{
-//                    Toast.makeText(UpdateProfileActivity.this, "Province is still empty", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
     }
 
-    private void setKotaList(String kabupatenPostalType, String kabupatenLookUpId) {
-//        RequestLocationBody requestLocationBody = new RequestLocationBody();
-//        requestLocationBody.setUsername("15040198");
-//        requestLocationBody.setVersion("133");
-//        requestLocationBody.setPostalId(kabupatenLookUpId);
-//        requestLocationBody.setPostalType(kabupatenPostalType);
-//        etKota.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                locationType = "city";
-//                if (etVillage.getText().length() != 0 || tvKodePos.getText().length() != 0) {
-//                    etVillage.setText("");
-//                    tvKodePos.setText("");
-//                }
-//                if(!etKabupaten.getText().toString().equals("")){
-//                    final Dialog dialog = new Dialog(UpdateProfileActivity.this);
-//                    LayoutInflater inflater = getLayoutInflater();
-//                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                    dialog.setCancelable(true);
-//                    View viewDialog = inflater.inflate(R.layout.custom_dialog, null);
-//                    dialog.setContentView(viewDialog);
-//                    RecyclerView rvProvinsi = viewDialog.findViewById(R.id.rv_provinces);
-//                    ProgressBar pbDialog = viewDialog.findViewById(R.id.pb_dialog);
-//                    TextView tvtitle = viewDialog.findViewById(R.id.tv_title);
-//                    tvtitle.setText("CITY");
-//                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-//                    provinceInterface.getProvince(requestLocationBody).enqueue(new Callback<ProvinceModel>() {
-//                        @Override
-//                        public void onResponse(Call<ProvinceModel> call, Response<ProvinceModel> response) {
-//                            if(response.isSuccessful()){
-//                                if(response.body().getResponseStatus().equals("OK")){
-//                                    pbDialog.setVisibility(View.GONE);
-//                                    provinceItemArrayList = new ArrayList<>();
-//                                    provinceItemArrayList = response.body().getList();
-//                                    provinsiAdapter = new ProvinsiAdapter(
-//                                            provinceItemArrayList,
-//                                            kabupatenArrayList,
-//                                            listKotaItems,
-//                                            listVillageItems,
-//                                            UpdateProfileActivity.this,
-//                                            UpdateProfileActivity.this,
-//                                            dialog, locationType);
-//                                    rvProvinsi.setAdapter(provinsiAdapter);
-//                                    linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-//                                    rvProvinsi.setLayoutManager(linearLayoutManager);
-//                                    for (ListItem listItem : response.body().getList()){
-//                                        kotaStringNameItemArrayList.add(listItem.getName());
-//                                    }
-//                                    for(int i = 0 ; i < kotaStringNameItemArrayList.size() ; i++){
-//                                        if(kotaStringNameItemArrayList.get(i).equals(userModel.getKota())){
-//                                            index3 = i;
-//                                        }
-//                                    }
-//                                    rvProvinsi.getLayoutManager().scrollToPosition(index3 + 1);
-//                                    kotaStringNameItemArrayList.clear();
-//                                }
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onFailure(Call<ProvinceModel> call, Throwable t) {
-//                            pbDialog.setVisibility(View.GONE);
-//                            Toast.makeText(UpdateProfileActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//                    dialog.show();
-//                }else{
-//                    Toast.makeText(UpdateProfileActivity.this, "District is still empty", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+    private void setKotaList(String kabupatenLookUpId, String kabupatenPostalType) {
+        RequestLocationBody requestLocationBody = new RequestLocationBody();
+        requestLocationBody.setUsername("15040198");
+        requestLocationBody.setVersion("134");
+        requestLocationBody.setPostalId(kabupatenLookUpId);
+        requestLocationBody.setPostalType(kabupatenPostalType);
+        locationType = "city";
+        provinceInterface.getProvince(requestLocationBody).enqueue(new Callback<ProvinceModel>() {
+            @Override
+            public void onResponse(Call<ProvinceModel> call, Response<ProvinceModel> response) {
+                if(response.isSuccessful()){
+                    if(response.body().getResponseStatus().equals("OK")){
+                        dialog = new Dialog(UpdateProfileActivity.this);
+                        LayoutInflater inflater = getLayoutInflater();
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dialog.setCancelable(false);
+                        View viewDialog = inflater.inflate(R.layout.custom_dialog, null);
+                        dialog.setContentView(viewDialog);
+                        rvProvinsi = viewDialog.findViewById(R.id.rv_provinces);
+                        pbDialog = viewDialog.findViewById(R.id.pb_dialog);
+                        TextView tvtitle = viewDialog.findViewById(R.id.tv_title);
+                        tvtitle.setText("CITY");
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                        if (response.isSuccessful()) {
+                            if (response.body().getResponseStatus().equals("OK")) {
+                                pbDialog.setVisibility(View.GONE);
+                                provinceItemArrayList = new ArrayList<>();
+                                provinceItemArrayList = response.body().getList();
+                                provinsiAdapter = new ProvinsiAdapter(
+                                        provinceItemArrayList,
+                                        kabupatenArrayList,
+                                        listKotaItems,
+                                        listVillageItems,
+                                        UpdateProfileActivity.this,
+                                        UpdateProfileActivity.this,
+                                        dialog, locationType);
+                                rvProvinsi.setAdapter(provinsiAdapter);
+                                linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+                                rvProvinsi.setLayoutManager(linearLayoutManager);
+                                for (ListItem listItem : response.body().getList()){
+                                    kotaStringItemArrayList.add(listItem.getLookupId());
+                                    kotaStringNameItemArrayList.add(listItem.getName());
+                                    kotaStringPostalTypeItemArrayList.add(listItem.getPostalType());
+                                }
+                                for(int i = 0 ; i < kotaStringNameItemArrayList.size() ; i++){
+                                    if(kotaStringNameItemArrayList.get(i).equals(userModel.getKota())){
+                                        indexString3 = kotaStringNameItemArrayList.get(i).toString();
+                                        indexOf3 = kotaStringItemArrayList.get(i).toString();
+                                        postalTypeKota = kotaStringPostalTypeItemArrayList.get(i).toString();
+                                        index3 = i;
+                                    }
+                                }
+                                rvProvinsi.getLayoutManager().scrollToPosition(index3 + 1);
+                                kotaStringNameItemArrayList.clear();
+                            }
+                        }
+
+                        etKota.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (etVillage.getText().length() != 0 || tvKodePos.getText().length() != 0) {
+                                    etVillage.setText("");
+                                    etKota.setText("");
+                                    tvKodePos.setText("");
+                                }
+                                dialog.show();
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProvinceModel> call, Throwable t) {
+                Toast.makeText(UpdateProfileActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setVillageList(String kotaPostalType, String kotaLookUpId) {
         RequestLocationBody requestLocationBody = new RequestLocationBody();
         requestLocationBody.setUsername("15040198");
-        requestLocationBody.setVersion("133");
+        requestLocationBody.setVersion("134");
         requestLocationBody.setPostalId(kotaLookUpId);
         requestLocationBody.setPostalType(kotaPostalType);
 //        provinceInterface.getVillage(requestLocationBody).enqueue(new Callback<Village>() {

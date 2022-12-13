@@ -88,46 +88,20 @@ public class LoginActivity extends AppCompatActivity {
                     String password = etPassword.getText().toString();
                     database = dbHelper.getReadableDatabase();
                     try {
-                        Cursor c = database.rawQuery("SELECT * FROM " + DBHelper.TABLE_NAME +
-                                " WHERE " + DBHelper.NAME_COl + " = '" + name + "'" +
-                                " AND " + DBHelper.PASS_COL + " = '" + password + "' ", null);
-
                         //Kita check kalau user and password match and existed in the row table. (Diambil logicnya dari LoginActivity)
-                        if (c.getCount() > 0) {
-                            c.moveToFirst();
-                            UserModel userModel = new UserModel();
-                            userModel.setId(String.valueOf(c.getInt(c.getColumnIndex(DBHelper.ID_COL))));
-//                        userModel.setName(c.getString(c.getColumnIndex(DBHelper.NAME_COl)));
-//                        userModel.setPhoneNumber(c.getString(c.getColumnIndex(DBHelper.PHONE_COL)));
-//                        userModel.setProvinsi(c.getString(c.getColumnIndex(DBHelper.PROVINSI_COL)));
-//                        userModel.setKabupaten(c.getString(c.getColumnIndex(DBHelper.KABUPATEN_COL)));
-//                        userModel.setKota(c.getString(c.getColumnIndex(DBHelper.KOTA_COL)));
-//                        userModel.setJalan(c.getString(c.getColumnIndex(DBHelper.JALAN_COL)));
-//                        userModel.setZipCode(c.getString(c.getColumnIndex(DBHelper.ZIP_CODE_COL)));
-//                        userModel.setImageString(c.getString(c.getColumnIndex(DBHelper.IMAGE_STRING_COL)));
-//                        userModel.setKota(c.getString(c.getColumnIndex(DBHelper.KOTA_COL)));
+                        if (dbHelper.getUserByNameAndPassword(name, password) > 0) {
+                            UserModel userId = dbHelper.returnModel(name, password);
                             SharedPreferences.Editor prefEditor = pref.edit();
-                            prefEditor.putString("_userid", userModel.getId());
-//                        prefEditor.putString("_username", userModel.getName());
-//                        prefEditor.putString("_phonenumber", userModel.getPhoneNumber());
-//                        prefEditor.putString("_provinsi", userModel.getProvinsi());
-//                        prefEditor.putString("_kabupaten", userModel.getKabupaten());
-//                        prefEditor.putString("_kota", userModel.getKota());
-//                        prefEditor.putString("_jalan", userModel.getJalan());
-//                        prefEditor.putString("_zipcode", userModel.getZipCode());
-//                        prefEditor.putString("_imagestring", userModel.getImageString());
+                            prefEditor.putString("_userid", userId.getId());
                             prefEditor.apply();
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            c.close();
                             dbHelper.close();
                             startActivity(intent);
                         } else {
-                            c.close();
                             Toast.makeText(LoginActivity.this, "User Doesnt Exist", Toast.LENGTH_SHORT).show();
                         }
                     } catch (SQLException e) {
-                        Log.e("TAG", "onClick: " + e.getMessage().toString());
                     }
                 }
                 }

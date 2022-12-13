@@ -80,13 +80,14 @@ public class ProvinsiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         switch (holder.getItemViewType()) {
             case PLACEHOLDER:
                 final PlaceHolder placeHolder = (PlaceHolder) holder;
+                Log.e("TAG", "onBindViewHolder: " + locationType );
                 if(locationType.equals("province")) {
                     placeHolder.tvCityDialog.setText("Please Choose your Desired Province");
                 }else if(locationType.equals("district")){
                     placeHolder.tvCityDialog.setText("Please Choose your Desired Districts");
                 }else if(locationType.equals("city")){
                     placeHolder.tvCityDialog.setText("Please Choose your Desired City");
-                }else{
+                }else if(locationType.equals("village")){
                     placeHolder.tvCityDialog.setText("Please Choose your Desired Village");
                 }
             break;
@@ -134,7 +135,7 @@ public class ProvinsiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                             cmDialogFrag.dismiss();
                         }
                     });
-                }else{
+                }else if(locationType.equals("village")){
                     provinsiHolder.tvProvinsiNama.setText(listItemArrayList.get(position - 1).getName());
                     provinsiHolder.lnrCvProvinsi.setOnClickListener(new View.OnClickListener() {
                         @Override

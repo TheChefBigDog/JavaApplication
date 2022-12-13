@@ -5,6 +5,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import android.Manifest;
 import android.content.Intent;
@@ -15,6 +17,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.javaapplication.Activity.DBHelper.DBHelper;
@@ -22,6 +26,7 @@ import com.example.javaapplication.R;
 
 public class SplashScreen extends AppCompatActivity {
 
+    @BindView(R.id.pb_dialog_splash) ProgressBar pbDialog;
     private int RECORD_REQUEST_CODE = 1;
     private SharedPreferences pref;
     private String test;
@@ -34,6 +39,7 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        ButterKnife.bind(this);
         getSupportActionBar().hide();
         dbHelper = new DBHelper(SplashScreen.this);
         database = dbHelper.getReadableDatabase();
@@ -86,6 +92,7 @@ public class SplashScreen extends AppCompatActivity {
                 Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                pbDialog.setVisibility(View.GONE);
                 startActivity(intent);
                 finish();
             }, 2000);
@@ -94,6 +101,7 @@ public class SplashScreen extends AppCompatActivity {
                 Intent intent = new Intent(SplashScreen.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                pbDialog.setVisibility(View.GONE);
                 startActivity(intent);
                 finish();
             }, 2000);

@@ -231,6 +231,7 @@
                             android:layout_marginEnd="@dimen/_10sdp"
                             android:padding="@dimen/_10sdp"
                             android:textColor="@color/white"
+                            android:focusableInTouchMode="false"
                             android:layout_marginStart="@dimen/_10sdp"
                             android:background="@drawable/shape_textbox"
                             android:layout_below="@+id/lbl_keluarahaan"

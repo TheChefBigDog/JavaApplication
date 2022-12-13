@@ -4,10 +4,10 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/logo96x96"
+        android:icon="@drawable/logo_transparent_96x96"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@drawable/logo96x96"
+        android:roundIcon="@drawable/logo_transparent_96x96"
         android:supportsRtl="true"
         android:theme="@style/Theme.JavaApplication">
         <activity android:name=".Activity.UpdateProfileActivity"></activity>
