@@ -1,60 +1,38 @@
 package com.example.javaapplication.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Update;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.javaapplication.Activity.Adapter.ProvinsiAdapter;
-import com.example.javaapplication.Activity.Adapter.UserAdapter;
 import com.example.javaapplication.Activity.DBHelper.DBHelper;
-import com.example.javaapplication.Activity.Model.Data.Kabupaten.KabupatenModel;
-import com.example.javaapplication.Activity.Model.Data.Kabupaten.ListItemKabupaten;
-import com.example.javaapplication.Activity.Model.Data.Kota.KotaModel;
-import com.example.javaapplication.Activity.Model.Data.Kota.ListKotaItem;
 import com.example.javaapplication.Activity.Model.Data.Province.ListItem;
 import com.example.javaapplication.Activity.Model.Data.Province.ProvinceModel;
 import com.example.javaapplication.Activity.Model.Data.User.UserModel;
-import com.example.javaapplication.Activity.Model.Data.Village.Village;
-import com.example.javaapplication.Activity.Model.Data.Village.VillageListItem;
 import com.example.javaapplication.Activity.Services.ProvinceInterface;
 import com.example.javaapplication.Activity.Services.ProvinceUtils;
 import com.example.javaapplication.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class UpdateProfileActivity extends AppCompatActivity implements  ProvinsiInterface{
 
@@ -81,9 +59,6 @@ public class UpdateProfileActivity extends AppCompatActivity implements  Provins
     ArrayList<String> kotaStringItemArrayList = new ArrayList<>();
     ArrayList<String> kotaStringNameItemArrayList = new ArrayList<>();
     ArrayList<String> kotaStringPostalTypeItemArrayList = new ArrayList<>();
-    ArrayList<ListItemKabupaten> kabupatenArrayList;
-    ArrayList<ListKotaItem> listKotaItems;
-    ArrayList<VillageListItem> listVillageItems;
     ArrayList<String> villageStringItemArrayList = new ArrayList<>();
     ArrayList<String> villageStringNameItemArrayList = new ArrayList<>();
     ProvinceInterface provinceInterface;
@@ -168,9 +143,6 @@ public class UpdateProfileActivity extends AppCompatActivity implements  Provins
                                 provinceItemArrayList = response.body().getList();
                                 provinsiAdapter = new ProvinsiAdapter(
                                         provinceItemArrayList,
-                                        kabupatenArrayList,
-                                        listKotaItems,
-                                        listVillageItems,
                                         UpdateProfileActivity.this,
                                         UpdateProfileActivity.this,
                                         dialog, locationType);
@@ -254,9 +226,6 @@ public class UpdateProfileActivity extends AppCompatActivity implements  Provins
                                 provinceItemArrayList = response.body().getList();
                                 provinsiAdapter = new ProvinsiAdapter(
                                         provinceItemArrayList,
-                                        kabupatenArrayList,
-                                        listKotaItems,
-                                        listVillageItems,
                                         UpdateProfileActivity.this,
                                         UpdateProfileActivity.this,
                                         dialog, locationType);
@@ -339,9 +308,6 @@ public class UpdateProfileActivity extends AppCompatActivity implements  Provins
                                 provinceItemArrayList = response.body().getList();
                                 provinsiAdapter = new ProvinsiAdapter(
                                         provinceItemArrayList,
-                                        kabupatenArrayList,
-                                        listKotaItems,
-                                        listVillageItems,
                                         UpdateProfileActivity.this,
                                         UpdateProfileActivity.this,
                                         dialog, locationType);

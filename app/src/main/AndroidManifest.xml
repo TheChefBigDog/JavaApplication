@@ -4,18 +4,22 @@
 
     <application
         android:allowBackup="true"
+        android:configChanges="orientation"
         android:icon="@drawable/logo_transparent_96x96"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@drawable/logo_transparent_96x96"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.JavaApplication">
-        <activity android:name=".Activity.UpdateProfileActivity"></activity>
-        <activity android:name=".Activity.UpdateProfileActivityRenew"></activity>
+        <activity android:name=".Activity.PhotoExifActivity"></activity>
+        <activity android:name=".Activity.UpdateProfileActivity" />
+        <activity android:name=".Activity.UpdateProfileActivityRenew" />
         <activity android:name=".Activity.CheckUserActivity" />
         <activity android:name=".Activity.RegisterActivity" />
         <activity android:name=".Activity.LoginActivity" />
-        <activity android:name=".Activity.SplashScreen"
+        <activity
+            android:name=".Activity.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,10 +29,12 @@
         </activity>
         <activity android:name=".Activity.MainActivity" />
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

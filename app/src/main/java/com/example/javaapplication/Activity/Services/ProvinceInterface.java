@@ -1,11 +1,7 @@
 package com.example.javaapplication.Activity.Services;
 
-import com.example.javaapplication.Activity.Model.Data.Kabupaten.KabupatenModel;
-import com.example.javaapplication.Activity.Model.Data.Kota.KotaModel;
 import com.example.javaapplication.Activity.Model.Data.Province.ProvinceModel;
-import com.example.javaapplication.Activity.Model.Data.Village.Village;
 import com.example.javaapplication.Activity.RequestLocationBody;
-import com.example.javaapplication.Activity.RequestVillageBody;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

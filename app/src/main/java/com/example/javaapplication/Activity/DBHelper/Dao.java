@@ -1,11 +1,9 @@
 package com.example.javaapplication.Activity.DBHelper;
 
-import com.example.javaapplication.Activity.Model.Data.UserModel;
 import com.example.javaapplication.Activity.UserEntity;
 
 import androidx.room.Delete;
 import androidx.room.Insert;
-import androidx.room.Query;
 import androidx.room.Update;
 
 public interface Dao {

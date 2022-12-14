@@ -1,12 +1,8 @@
 package com.example.javaapplication.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Update;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -17,46 +13,29 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.javaapplication.Activity.Adapter.ProvinsiAdapter;
-import com.example.javaapplication.Activity.Adapter.UserAdapter;
 import com.example.javaapplication.Activity.DBHelper.DBHelper;
-import com.example.javaapplication.Activity.Model.Data.Kabupaten.KabupatenModel;
-import com.example.javaapplication.Activity.Model.Data.Kabupaten.ListItemKabupaten;
-import com.example.javaapplication.Activity.Model.Data.Kota.KotaModel;
-import com.example.javaapplication.Activity.Model.Data.Kota.ListKotaItem;
 import com.example.javaapplication.Activity.Model.Data.Province.ListItem;
 import com.example.javaapplication.Activity.Model.Data.Province.ProvinceModel;
 import com.example.javaapplication.Activity.Model.Data.User.UserModel;
-import com.example.javaapplication.Activity.Model.Data.Village.Village;
-import com.example.javaapplication.Activity.Model.Data.Village.VillageListItem;
 import com.example.javaapplication.Activity.Services.ProvinceInterface;
 import com.example.javaapplication.Activity.Services.ProvinceUtils;
 import com.example.javaapplication.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class UpdateProfileActivityRenew extends AppCompatActivity implements  ProvinsiInterface{
 
@@ -85,9 +64,6 @@ public class UpdateProfileActivityRenew extends AppCompatActivity implements  Pr
     ArrayList<String> kotaStringItemArrayList = new ArrayList<>();
     ArrayList<String> kotaStringNameItemArrayList = new ArrayList<>();
     ArrayList<String> kotaStringPostalTypeItemArrayList = new ArrayList<>();
-    ArrayList<ListItemKabupaten> kabupatenArrayList;
-    ArrayList<ListKotaItem> listKotaItems;
-    ArrayList<VillageListItem> listVillageItems;
     ArrayList<String> villageStringItemArrayList = new ArrayList<>();
     ArrayList<String> villageStringNameItemArrayList = new ArrayList<>();
     ArrayList<String> villageStringPostalTypeItemArrayList = new ArrayList<>();
@@ -121,8 +97,6 @@ public class UpdateProfileActivityRenew extends AppCompatActivity implements  Pr
         user_id = sp.getString("_userid", "");
         dbHelper = new DBHelper(UpdateProfileActivityRenew.this);
         database = dbHelper.getWritableDatabase();
-//        Cursor c = database.rawQuery("SELECT * FROM " + DBHelper.TABLE_NAME +
-//                " WHERE " + DBHelper.ID_COL + " = '" + user_id + "'", null);
         linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         etProvinsi.setKeyListener(null);
         etKabupaten.setKeyListener(null);
@@ -130,7 +104,6 @@ public class UpdateProfileActivityRenew extends AppCompatActivity implements  Pr
         etVillage.setKeyListener(null);
         userId = new UserModel();
         if(dbHelper.getUserByID(user_id)){
-            Log.e("TAG", "onCreate Benar: " );
             userId = dbHelper.returnModelByID(user_id);
             etUsername.setText(userId.getName());
             etPhoneNumber.setText(userId.getPhoneNumber());
@@ -141,7 +114,6 @@ public class UpdateProfileActivityRenew extends AppCompatActivity implements  Pr
             tvKodePos.setText(userId.getZipCode());
 //            c.close();
         }else{
-            Log.e("TAG", "onCreate Salah: " );
         }
         RequestLocationBody requestLocationBody = new RequestLocationBody();
         requestLocationBody.setUsername("15040198");
@@ -205,7 +177,6 @@ public class UpdateProfileActivityRenew extends AppCompatActivity implements  Pr
         etProvinsi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 provinceInterface.getProvince(requestLocationBody).enqueue(new Callback<ProvinceModel>() {
                     @Override
                     public void onResponse(Call<ProvinceModel> call, Response<ProvinceModel> response) {
@@ -228,9 +199,6 @@ public class UpdateProfileActivityRenew extends AppCompatActivity implements  Pr
 
                                 provinsiAdapter = new ProvinsiAdapter(
                                 provinceItemArrayList,
-                                kabupatenArrayList,
-                                listKotaItems,
-                                listVillageItems,
                                 UpdateProfileActivityRenew.this,
                                 UpdateProfileActivityRenew.this,
                                 dialog, locationType);
@@ -306,7 +274,6 @@ public class UpdateProfileActivityRenew extends AppCompatActivity implements  Pr
             @Override
             public void onClick(View view) {
                 if(etProvinsi.getText().length() != 0){
-                Log.e("TAG", "onResponse kabupaten: " + locationType);
                 dialog = new Dialog(UpdateProfileActivityRenew.this);
                 LayoutInflater inflater = getLayoutInflater();
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -316,7 +283,6 @@ public class UpdateProfileActivityRenew extends AppCompatActivity implements  Pr
                 rvProvinsi = viewDialog.findViewById(R.id.rv_provinces);
                 pbDialog = viewDialog.findViewById(R.id.pb_dialog);
                 TextView tvtitle = viewDialog.findViewById(R.id.tv_title);
-                Log.e("TAG", "kabupaten: " + locationType);
                 locationType = "district";
                 tvtitle.setText("DISTRICT");
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -330,9 +296,6 @@ public class UpdateProfileActivityRenew extends AppCompatActivity implements  Pr
 
                                 provinsiAdapter = new ProvinsiAdapter(
                                         provinceItemArrayList,
-                                        kabupatenArrayList,
-                                        listKotaItems,
-                                        listVillageItems,
                                         UpdateProfileActivityRenew.this,
                                         UpdateProfileActivityRenew.this,
                                         dialog, locationType);
@@ -421,7 +384,6 @@ public class UpdateProfileActivityRenew extends AppCompatActivity implements  Pr
                 TextView tvtitle = viewDialog.findViewById(R.id.tv_title);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                 kotaStringNameItemArrayList = new ArrayList<>();
-                Log.e("TAG", "kota: " + locationType);
                 locationType = "city";
                 tvtitle.setText("CITY");
                 provinceInterface.getProvince(requestLocationBody).enqueue(new Callback<ProvinceModel>() {
@@ -429,21 +391,12 @@ public class UpdateProfileActivityRenew extends AppCompatActivity implements  Pr
                     public void onResponse(Call<ProvinceModel> call, Response<ProvinceModel> response) {
                         if(response.isSuccessful()){
                             if(response.body().getResponseStatus().equals("OK")){
-                                Log.e("TAG", "onResponse city: " + locationType);
                                 pbDialog.setVisibility(View.GONE);
                                 provinceItemArrayList = new ArrayList<>();
                                 provinceItemArrayList = response.body().getList();
                                 kotaStringNameItemArrayList = new ArrayList<>();
-//                                if (etVillage.getText().length() != 0 || tvKodePos.getText().length() != 0) {
-//                                    etVillage.setText("");
-//                                    etKota.setText("");
-//                                    tvKodePos.setText("");
-//                                }
                                 provinsiAdapter = new ProvinsiAdapter(
                                         provinceItemArrayList,
-                                        kabupatenArrayList,
-                                        listKotaItems,
-                                        listVillageItems,
                                         UpdateProfileActivityRenew.this,
                                         UpdateProfileActivityRenew.this,
                                         dialog, locationType);
@@ -459,7 +412,6 @@ public class UpdateProfileActivityRenew extends AppCompatActivity implements  Pr
                                         index3 = i;
                                     }
                                 }
-                                Log.e("TAG", "onResponse Kabupaten: " + kotaStringNameItemArrayList);
                                 rvProvinsi.getLayoutManager().scrollToPosition(index3 + 1);
                                 kotaStringNameItemArrayList.clear();
                             }
@@ -501,19 +453,14 @@ public class UpdateProfileActivityRenew extends AppCompatActivity implements  Pr
                                 rvProvinsi = viewDialog.findViewById(R.id.rv_provinces);
                                 pbDialog = viewDialog.findViewById(R.id.pb_dialog);
                                 TextView tvtitle = viewDialog.findViewById(R.id.tv_title);
-                                Log.e("TAG", "jalan: " + locationType);
                                 tvtitle.setText("VILLAGE");
                                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                                 villageStringNameItemArrayList = new ArrayList<>();
                                 pbDialog.setVisibility(View.GONE);
                                 provinceItemArrayList = new ArrayList<>();
                                 provinceItemArrayList = response.body().getList();
-
                                 provinsiAdapter = new ProvinsiAdapter(
                                         provinceItemArrayList,
-                                        kabupatenArrayList,
-                                        listKotaItems,
-                                        listVillageItems,
                                         UpdateProfileActivityRenew.this,
                                         UpdateProfileActivityRenew.this,
                                         dialog, locationType);

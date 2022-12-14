@@ -112,15 +112,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 " AND " + PASS_COL + " = '" + password + "' ", null);
         UserModel userModel = new UserModel();
         if (c != null) {
-            Log.e("TAG", "Benar: " );
             c.moveToFirst();
             userModel.setId(c.getString(c.getColumnIndex(ID_COL)));
-
             c.close();
             return userModel;
         }else{
             c.moveToFirst();
-            Log.e("TAG", "Salah: " );
             c.close();
             return userModel;
         }
@@ -134,13 +131,14 @@ public class DBHelper extends SQLiteOpenHelper {
                 " WHERE " + DBHelper.ID_COL + " = '" + id + "'", null);
         if (c != null) {
             c.moveToFirst();
-            userModel.setProvinsi(c.getString(c.getColumnIndex(PROVINSI_COL)));
             userModel.setName(c.getString(c.getColumnIndex(NAME_COl)));
+            userModel.setProvinsi(c.getString(c.getColumnIndex(PROVINSI_COL)));
             userModel.setPhoneNumber(c.getString(c.getColumnIndex(PHONE_COL)));
             userModel.setZipCode(c.getString(c.getColumnIndex(ZIP_CODE_COL)));
             userModel.setKota(c.getString(c.getColumnIndex(KOTA_COL)));
             userModel.setKabupaten(c.getString(c.getColumnIndex(KABUPATEN_COL)));
             userModel.setJalan(c.getString(c.getColumnIndex(JALAN_COL)));
+            userModel.setImageString(c.getString(c.getColumnIndex(IMAGE_STRING_COL)));
             return userModel;
         }else{
             c.moveToFirst();

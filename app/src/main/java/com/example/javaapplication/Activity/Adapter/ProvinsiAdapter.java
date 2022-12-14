@@ -2,34 +2,21 @@ package com.example.javaapplication.Activity.Adapter;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.example.javaapplication.Activity.Model.Data.Kabupaten.ListItemKabupaten;
-import com.example.javaapplication.Activity.Model.Data.Kota.ListKotaItem;
 import com.example.javaapplication.Activity.Model.Data.Province.ListItem;
-import com.example.javaapplication.Activity.Model.Data.Village.VillageListItem;
 import com.example.javaapplication.Activity.ProvinsiInterface;
 import com.example.javaapplication.R;
-
 import java.util.ArrayList;
-
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ProvinsiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     ArrayList<ListItem> listItemArrayList;
-    ArrayList<ListItemKabupaten> listItemKabupatens;
-    ArrayList<ListKotaItem> listKotaItems;
-    ArrayList<VillageListItem> villageListItemArrayList;
-
     Context context;
     private static final int PLACEHOLDER = 0;
     private static final int ITEM = 1;
@@ -38,18 +25,12 @@ public class ProvinsiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     String locationType;
 
     public ProvinsiAdapter(ArrayList<ListItem> listItemArrayList,
-                           ArrayList<ListItemKabupaten> listItemKabupatens,
-                           ArrayList<ListKotaItem> listKotaItems,
-                           ArrayList<VillageListItem> villageListItemArrayList,
                            Context context,
                            ProvinsiInterface provinsiInterface,
                            Dialog cmDialogFrag,
                            String locationType) {
 
         this.listItemArrayList = listItemArrayList;
-        this.listItemKabupatens = listItemKabupatens;
-        this.listKotaItems = listKotaItems;
-        this.villageListItemArrayList = villageListItemArrayList;
         this.context = context;
         this.pCallbackk = provinsiInterface;
         this.cmDialogFrag = cmDialogFrag;
@@ -80,7 +61,6 @@ public class ProvinsiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         switch (holder.getItemViewType()) {
             case PLACEHOLDER:
                 final PlaceHolder placeHolder = (PlaceHolder) holder;
-                Log.e("TAG", "onBindViewHolder: " + locationType );
                 if(locationType.equals("province")) {
                     placeHolder.tvCityDialog.setText("Please Choose your Desired Province");
                 }else if(locationType.equals("district")){

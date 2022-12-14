@@ -10,7 +10,6 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -21,7 +20,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,25 +30,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.javaapplication.Activity.Adapter.KabupatenAdapter;
 import com.example.javaapplication.Activity.Adapter.ProvinsiAdapter;
 import com.example.javaapplication.Activity.DBHelper.DBHelper;
-import com.example.javaapplication.Activity.Model.Data.Kabupaten.KabupatenModel;
-import com.example.javaapplication.Activity.Model.Data.Kabupaten.ListItemKabupaten;
-import com.example.javaapplication.Activity.Model.Data.Kota.KotaModel;
-import com.example.javaapplication.Activity.Model.Data.Kota.ListKotaItem;
 import com.example.javaapplication.Activity.Model.Data.Province.ListItem;
 import com.example.javaapplication.Activity.Model.Data.Province.ProvinceModel;
-import com.example.javaapplication.Activity.Model.Data.Village.Village;
-import com.example.javaapplication.Activity.Model.Data.Village.VillageListItem;
 import com.example.javaapplication.Activity.Services.ProvinceInterface;
 import com.example.javaapplication.Activity.Services.ProvinceUtils;
 import com.example.javaapplication.R;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
@@ -74,9 +62,6 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
     DBHelper dbHelper;
     ProvinceInterface provinceInterface;
     ArrayList<ListItem> provinceItemArrayList = new ArrayList<>();
-    ArrayList<ListItemKabupaten> kabupatenArrayList;
-    ArrayList<ListKotaItem> listKotaItems;
-    ArrayList<VillageListItem> listVillageItems;
     ProvinsiAdapter provinsiAdapter;
     String imageString, locationType, postalTypeRegistrasi, lookUpIdRegistrasi;
     LinearLayoutManager linearLayoutManager;
@@ -161,9 +146,6 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
                                     provinceItemArrayList = response.body().getList();
                                     provinsiAdapter = new ProvinsiAdapter(
                                             provinceItemArrayList,
-                                            kabupatenArrayList,
-                                            listKotaItems,
-                                            listVillageItems,
                                             RegisterActivity.this,
                                             RegisterActivity.this,
                                             dialog, locationType);
@@ -220,9 +202,6 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
                                     provinceItemArrayList = response.body().getList();
                                     provinsiAdapter = new ProvinsiAdapter(
                                             provinceItemArrayList,
-                                            kabupatenArrayList,
-                                            listKotaItems,
-                                            listVillageItems,
                                             RegisterActivity.this,
                                             RegisterActivity.this,
                                             dialog, locationType);
@@ -284,9 +263,6 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
                                  provinceItemArrayList = response.body().getList();
                                  provinsiAdapter = new ProvinsiAdapter(
                                          provinceItemArrayList,
-                                         kabupatenArrayList,
-                                         listKotaItems,
-                                         listVillageItems,
                                          RegisterActivity.this,
                                          RegisterActivity.this,
                                          dialog, locationType);
@@ -344,9 +320,6 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
                                     provinceItemArrayList = response.body().getList();
                                     provinsiAdapter = new ProvinsiAdapter(
                                             provinceItemArrayList,
-                                            kabupatenArrayList,
-                                            listKotaItems,
-                                            listVillageItems,
                                             RegisterActivity.this,
                                             RegisterActivity.this,
                                             dialog, locationType);
@@ -380,8 +353,6 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
             ivCameraTakeAPicture.setImageBitmap(imgFile);
             Uri tempUri = getImageUri(getApplicationContext(),imgFile);
             File finalFile = new File(getRealPathFromURI(tempUri));
-            Log.e("TAG", "onActivityResult FILE: " +  finalFile);
-            Log.e("TAG", "onActivityResult URI: " +  tempUri);
             imageString = String.valueOf(finalFile);
         }
     }

@@ -8,7 +8,17 @@
     android:background="@color/primary_color"
     tools:context=".Activity.MainActivity">
 
-
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Post A Picture"
+        android:id="@+id/btn_post"
+        android:backgroundTint="@color/blue_discord"
+        android:textAllCaps="false"
+        android:layout_below="@+id/rlProfile"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        />
 
     <RelativeLayout
         android:id="@+id/rlProfile"
@@ -18,12 +28,14 @@
         android:layout_marginHorizontal="10dp"
         android:layout_height="wrap_content">
 
+
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/cv_profile"
         app:cardCornerRadius="@dimen/_10sdp"
-        android:backgroundTint="@color/primary_color_variant"
+        android:backgroundTint="@color/primary_color"
         android:padding="@dimen/_10sdp"
         android:layout_centerInParent="true"
         android:layout_marginHorizontal="@dimen/_10sdp"
@@ -120,7 +132,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_logout"
                 android:textColor="@color/white"
-
                 android:text="Log Out"
                 android:backgroundTint="@color/blue_discord"
                 android:layout_marginHorizontal="@dimen/_10sdp"
@@ -133,15 +144,18 @@
 
     </androidx.cardview.widget.CardView>
 
+
+
     </RelativeLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="130dp"
         android:id="@+id/ivProfile"
+        app:civ_circle_background_color="@color/primary_color_variant"
         android:layout_marginBottom="-20dp"
         android:layout_marginHorizontal="@dimen/_10sdp"
-        android:src="@drawable/ic_baseline_person_24"
+        android:src="@drawable/logo_transparent_96x96"
         />
 
 </RelativeLayout>

@@ -2,6 +2,7 @@
 package com.example.javaapplication.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -13,6 +14,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -24,15 +27,19 @@ import android.widget.Toast;
 import com.example.javaapplication.Activity.DBHelper.DBHelper;
 import com.example.javaapplication.R;
 
+import java.io.File;
+
 public class SplashScreen extends AppCompatActivity {
 
     @BindView(R.id.pb_dialog_splash) ProgressBar pbDialog;
     private int RECORD_REQUEST_CODE = 1;
+    private int CODE_CAMERA_REQUEST = 1;
     private SharedPreferences pref;
-    private String test;
+    private String user_id;
     private Boolean loginStatus = false;
     private static final String[] PERMISSIONS = {Manifest.permission.CAMERA,
-                                                 Manifest.permission.ACCESS_COARSE_LOCATION};
+                                                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                                 Manifest.permission.ACCESS_FINE_LOCATION};
     SQLiteDatabase database;
     DBHelper dbHelper;
     @Override
@@ -44,14 +51,15 @@ public class SplashScreen extends AppCompatActivity {
         dbHelper = new DBHelper(SplashScreen.this);
         database = dbHelper.getReadableDatabase();
         pref = getSharedPreferences("kotPref", MODE_PRIVATE);
-        test = pref.getString("_userid", "");
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+        user_id = pref.getString("_userid", "");
+        if (ContextCompat.checkSelfPermission(this, String.valueOf(PERMISSIONS))
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[] {
                     Manifest.permission.CAMERA,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.ACCESS_FINE_LOCATION}, 0);
         }else{
-            if (test.equals("")) {
+            if (user_id.equals("")) {
                 delayIntent(false);
             } else {
                 delayIntent(true);
@@ -68,9 +76,8 @@ public class SplashScreen extends AppCompatActivity {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (ContextCompat.checkSelfPermission(this,
                             Manifest.permission.CAMERA) ==
-                            PackageManager.PERMISSION_GRANTED
-                    ) {
-                        if (test.equals("")) {
+                            PackageManager.PERMISSION_GRANTED) {
+                        if (user_id.equals("")) {
                             delayIntent(false);
                         } else {
                             delayIntent(true);
@@ -84,6 +91,14 @@ public class SplashScreen extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+//        if(requestCode == CODE_CAMERA_REQUEST && resultCode == RESULT_OK){
+//
+//        }
     }
 
     public void delayIntent(Boolean loginStatus) {

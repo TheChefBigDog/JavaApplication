@@ -1,5 +1,6 @@
 package com.example.javaapplication.Activity;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Update;
 import butterknife.BindView;
@@ -13,6 +14,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -40,10 +42,14 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.tvKodePos) TextView tvKodePos;
     @BindView(R.id.btn_logout) Button btnLogout;
     @BindView(R.id.ivProfile) CircleImageView cvProfile;
+    @BindView(R.id.btn_post) Button btnPicture;
     SharedPreferences pref;
     String name, provinsi, kabupaten, kota, phonenumber, jalan, zipcode, imageString, user_id;
     SQLiteDatabase database;
     DBHelper dbHelper;
+    UserModel userId;
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint("Range")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,38 +58,42 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         getSupportActionBar().hide();
         pref = getApplicationContext().getSharedPreferences("kotPref", MODE_PRIVATE);
-
         dbHelper = new DBHelper(MainActivity.this);
         database = dbHelper.getWritableDatabase();
         user_id = pref.getString("_userid", "");
-        Log.e("TAG", "onCreate: " + user_id);
-        Cursor c = database.rawQuery("SELECT * FROM " + DBHelper.TABLE_NAME +
-                " WHERE " + DBHelper.ID_COL + " = '" + user_id + "'",null);
-        if(c.moveToFirst()){
-            UserModel userModel = new UserModel();
-            userModel.setName(c.getString(c.getColumnIndex(DBHelper.NAME_COl)));
-            userModel.setPhoneNumber(c.getString(c.getColumnIndex(DBHelper.PHONE_COL)));
-            userModel.setProvinsi(c.getString(c.getColumnIndex(DBHelper.PROVINSI_COL)));
-            userModel.setKabupaten(c.getString(c.getColumnIndex(DBHelper.KABUPATEN_COL)));
-            userModel.setKota(c.getString(c.getColumnIndex(DBHelper.KOTA_COL)));
-            userModel.setJalan(c.getString(c.getColumnIndex(DBHelper.JALAN_COL)));
-            userModel.setZipCode(c.getString(c.getColumnIndex(DBHelper.ZIP_CODE_COL)));
-            userModel.setImageString(c.getString(c.getColumnIndex(DBHelper.IMAGE_STRING_COL)));
-            Log.e("TAG", "onCreate: " + userModel.getName());
-            tvName.setText(userModel.getName());
-            tvPhoneNumber.setText(userModel.getPhoneNumber());
-            tvProvinsi.setText(userModel.getProvinsi());
-            tvKabupaten.setText(userModel.getKabupaten());
-            tvKota.setText(userModel.getKota());
-            tvJalan.setText(userModel.getJalan());
-            tvKodePos.setText(userModel.getZipCode());
-            Bitmap bm = BitmapFactory.decodeFile(userModel.getImageString());
-            cvProfile.setImageBitmap(bm);
+        userId = new UserModel();
+        if(dbHelper.getUserByID(user_id)){
+            userId = dbHelper.returnModelByID(user_id);
+            tvName.setText(userId.getName());
+            tvPhoneNumber.setText(userId.getPhoneNumber());
+            tvProvinsi.setText(userId.getProvinsi());
+            tvKabupaten.setText(userId.getKabupaten());
+            tvKota.setText(userId.getKota());
+            tvJalan.setText(userId.getJalan());
+            tvKodePos.setText(userId.getZipCode());
+            if(userId.getImageString() != null) {
+                Bitmap bm = BitmapFactory.decodeFile(userId.getImageString());
+                cvProfile.setImageBitmap(bm);
+            }else{
+                cvProfile.setCircleBackgroundColor(getApplicationContext().getColor(R.color.primary_color_variant));
+                cvProfile.setImageResource(R.drawable.logo_transparent);
+            }
         }else{
             Toast.makeText(this, "User is not existed yet", Toast.LENGTH_SHORT).show();
         }
+        imagePhotoExif();
         updateProfile();
         logOut();
+    }
+    private void imagePhotoExif() {
+        btnPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PhotoExifActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void updateProfile() {
