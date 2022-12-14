@@ -1,2 +1,5 @@
 include ':app'
 rootProject.name = "JavaApplication"
+include ':Module1'
+include ':app2'
+include ':javaapplication2'
