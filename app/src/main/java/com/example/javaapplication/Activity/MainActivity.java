@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.ivProfile) CircleImageView cvProfile;
     @BindView(R.id.btn_post) Button btnPicture;
     SharedPreferences pref;
-    String name, provinsi, kabupaten, kota, phonenumber, jalan, zipcode, imageString, user_id;
+    String user_id;
     SQLiteDatabase database;
     DBHelper dbHelper;
     UserModel userId;
