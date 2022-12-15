@@ -3,6 +3,20 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('/home/bobby/Documents/Keystore.jks')
+            storePassword '123BobbyRyan'
+            keyAlias 'key0'
+            keyPassword '123BobbyRyan'
+        }
+        release {
+            storeFile file('/home/bobby/Documents/Keystore.jks')
+            storePassword '123BobbyRyan'
+            keyAlias 'key0'
+            keyPassword '123BobbyRyan'
+        }
+    }
     compileSdkVersion 31
     buildToolsVersion '30.0.3'
     defaultConfig {
@@ -12,6 +26,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
         configurations.all {
             resolutionStrategy {
                 force 'androidx.lifecycle:lifecycle process:2.3.1'
