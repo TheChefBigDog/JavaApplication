@@ -2,6 +2,7 @@ package com.example.javaapplication.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -29,6 +30,7 @@ import com.example.javaapplication.Activity.DBHelper.DBHelper;
 import com.example.javaapplication.Activity.Model.Data.User.UserModel;
 import com.example.javaapplication.R;
 
+
 public class LoginActivity extends AppCompatActivity {
 
 
@@ -38,11 +40,12 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.tvRegister) TextView tvRegister;
     @BindView(R.id.ivEye) ImageView ivEye;
     @BindView(R.id.rlPassowrd) RelativeLayout rlPassword;
-
+     String hashPassword;
      SharedPreferences pref;
      SQLiteDatabase database;
      DBHelper dbHelper;
      int show_stat = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,26 +86,29 @@ public class LoginActivity extends AppCompatActivity {
                     etUsername.startAnimation(shake);
                     rlPassword.startAnimation(shake);
                 }else {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    String name = etUsername.getText().toString();
-                    String password = etPassword.getText().toString();
-                    database = dbHelper.getReadableDatabase();
-                    try {
-                        //Kita check kalau user and password match and existed in the row table. (Diambil logicnya dari LoginActivity)
-                        if (dbHelper.getUserByNameAndPassword(name, password) > 0) {
-                            UserModel userId = dbHelper.returnModel(name, password);
-                            SharedPreferences.Editor prefEditor = pref.edit();
-                            prefEditor.putString("_userid", userId.getId());
-                            prefEditor.apply();
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            dbHelper.close();
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(LoginActivity.this, "User Doesnt Exist", Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (SQLException e) {
-                    }
+
+//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                    String name = etUsername.getText().toString();
+//                    String password = etPassword.getText().toString();
+//                    database = dbHelper.getReadableDatabase();
+//                    try {
+//                        //Kita check kalau user and password match and existed in the row table. (Diambil logicnya dari LoginActivity)
+//                        if (dbHelper.getUserByNameAndPassword(name, password) > 0) {
+//                            UserModel userId = dbHelper.returnModel(name, password);
+////                            BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), userId.get);
+////                            Log.e("TAG", "onCreate matched: " + result.verified);
+//                            SharedPreferences.Editor prefEditor = pref.edit();
+//                            prefEditor.putString("_userid", userId.getId());
+//                            prefEditor.apply();
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                            dbHelper.close();
+//                            startActivity(intent);
+//                        } else {
+//                            Toast.makeText(LoginActivity.this, "User Doesnt Exist", Toast.LENGTH_SHORT).show();
+//                        }
+//                    } catch (SQLException e) {
+//                    }
                 }
                 }
 

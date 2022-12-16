@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -20,6 +21,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,9 +42,17 @@ import com.example.javaapplication.Activity.Model.Data.Province.ProvinceModel;
 import com.example.javaapplication.Activity.Services.ProvinceInterface;
 import com.example.javaapplication.Activity.Services.ProvinceUtils;
 import com.example.javaapplication.R;
+
+
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class RegisterActivity extends AppCompatActivity implements ProvinsiInterface{
 
@@ -63,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
     ProvinceInterface provinceInterface;
     ArrayList<ListItem> provinceItemArrayList = new ArrayList<>();
     ProvinsiAdapter provinsiAdapter;
-    String imageString, locationType, postalTypeRegistrasi, lookUpIdRegistrasi;
+    String imageString, locationType, postalTypeRegistrasi, lookUpIdRegistrasi, text;
     LinearLayoutManager linearLayoutManager;
     Dialog dialog;
     Animation shake;
@@ -93,27 +104,37 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
                 startActivityForResult(takePictureIntent, CODE_CAMERA_REQUEST);
             }
         });
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                String names = etRegisterUsername.getText().toString();
-                String password = etRegisterPassword.getText().toString();
-                String phonenumber = etRegisterPhoneNumber.getText().toString();
-                String provinsi = tvProvince.getText().toString();
-                String kabupaten = tvKabupaten.getText().toString();
-                String kota = tvCity.getText().toString();
-                String village = tvVillage.getText().toString();
-                String zipCode = tvPostalCode.getText().toString();
-                int registerStatus = 1;
-                if(dbHelper.getUserByName(names) > 0){
-                    Toast.makeText(RegisterActivity.this, "User Already Exist", Toast.LENGTH_SHORT).show();
-                }else{
-                    dbHelper.addName(names, password , phonenumber, provinsi, kabupaten, kota, village, zipCode, imageString, registerStatus);
-                    startActivity(intent);
-                    dbHelper.close();
+//                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+//                String names = etRegisterUsername.getText().toString();
+//                String password = etRegisterPassword.getText().toString();
+                try {
+                    byte[] decrypt = Base64.decode("UWlUxRKuOpDc02KV6wI1xg==\\\\n", Base64.DEFAULT);
+                    text = new String(decrypt, "UTF-8");
+                    Log.e("TAG", "onClick: " + text );
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
                 }
-            }
+//                String hash = hashPassword("UWlUxRKuOpDc02KV6wI1xg==\\\\n");
+//                Log.e("TAG", "onClick: " + hash);
+//                String phonenumber = etRegisterPhoneNumber.getText().toString();
+//                String provinsi = tvProvince.getText().toString();
+//                String kabupaten = tvKabupaten.getText().toString();
+//                String kota = tvCity.getText().toString();
+//                String village = tvVillage.getText().toString();
+//                String zipCode = tvPostalCode.getText().toString();
+//                int registerStatus = 1;
+//                if(dbHelper.getUserByName(names) > 0){
+//                    Toast.makeText(RegisterActivity.this, "User Already Exist", Toast.LENGTH_SHORT).show();
+//                }else{
+//                    dbHelper.addName(names, hash , phonenumber, provinsi, kabupaten, kota, village, zipCode, imageString, registerStatus);
+//                    startActivity(intent);
+//                    dbHelper.close();
+                }
+//            }
         });
     }
 
@@ -374,11 +395,9 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
     private Uri getImageUri(Context context, Bitmap photo){
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         photo.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(
-                context.getContentResolver(),
-                photo,
-                "ImageFile",
-                null
+        Random rand = new Random();
+        int randNo = rand.nextInt(1000);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), photo, "ImageFile_" + randNo, null
         );
         return Uri.parse(path);
     }
@@ -405,9 +424,9 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
     public void getProvinsi(String provinsi, String postalType, String lookUpId, String locationType, String zipCode) {
         postalTypeRegistrasi = postalType;
         lookUpIdRegistrasi = lookUpId;
-        switch (locationType){
+        switch (locationType) {
             case "province":
-                if (tvKabupaten.getText().length() != 0|| tvCity.getText().length() != 0 || tvVillage.getText().length() != 0 || tvPostalCode.getText().length() != 0) {
+                if (tvKabupaten.getText().length() != 0 || tvCity.getText().length() != 0 || tvVillage.getText().length() != 0 || tvPostalCode.getText().length() != 0) {
                     tvVillage.setText("");
                     tvKabupaten.setText("");
                     tvCity.setText("");
@@ -447,7 +466,37 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
                 tvVillage.setText(provinsi);
                 break;
         }
+//    }SELECT stored_passwd FROM passwd_table WHERE user_name = 'SomeUser' AND crypt('SomePassword', stored_passwd) = stored_passwd;
     }
+    private String hashPassword(String parameter1){
+//            try {
+//                MessageDigest md = MessageDigest.getInstance("MD5");
+//                byte[] messageDigest = md.digest(parameter1.getBytes());
+//                BigInteger no = new BigInteger(1, messageDigest);
+//                md.update(parameter1.getBytes(),0,parameter1.length());
+//                String password = "1234";
+//                String bcryptHashString = BCrypt.withDefaults().hashToString(12, parameter1.toCharArray());
+//                    String hashed = BCrypt.hashpw("123BobbyRyan", BCrypt.gensalt());
+//                BCrypt.Result result = BCrypt.verifyer().verify(bcryptHashString.toCharArray(), bcryptHashString);
+//                String signature = new BigInteger(1).toString(16);
+//                String ps = "UWlUxRKuOpDc02KV6wI1xg";
+//                String tmp = Base64.encodeBytes(ps.getBytes());
 
+// decode
+//                String ps2 = "UWlUxRKuOpDc02KV6wI1xg=";
+//                byte[] tmp2 = Base64.decode(parameter1, 0);
+//                String val2 = new String(parameter1, "UTF-8");
+//                System.out.println("Signature: "+ val2);
+//                String hashtext = no.toString(16);
+//                for(int i = 32 ; hashtext.length() < i ; i++){
+//                    hashtext = "0" + hashtext;
+//                }
+                return parameter1;
+//        String bcryptHashString = BCrypt.withDefaults().hashToString(12, parameter1.toCharArray());
+//        Log.e("TAG", "hashPassword: " + r esult.details);
+//            }catch (UnsupportedEncodingException e){
+//                throw new RuntimeException(e);
+//            }
 
+    }
 }

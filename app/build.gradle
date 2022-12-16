@@ -4,17 +4,23 @@ plugins {
 
 android {
     signingConfigs {
+
         debug {
+
             storeFile file('/home/bobby/Documents/Keystore.jks')
             storePassword '123BobbyRyan'
             keyAlias 'key0'
             keyPassword '123BobbyRyan'
+
         }
+
         release {
+
             storeFile file('/home/bobby/Documents/Keystore.jks')
             storePassword '123BobbyRyan'
             keyAlias 'key0'
             keyPassword '123BobbyRyan'
+
         }
     }
     compileSdkVersion 31
@@ -61,6 +67,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.2.0'
     implementation 'id.zelory:compressor:2.1.1'
+    implementation group: 'at.favre.lib', name: 'bcrypt', version: '0.9.0'
     debugImplementation 'com.github.chuckerteam.chucker:library:3.5.2'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.jakewharton:butterknife:10.2.3'
