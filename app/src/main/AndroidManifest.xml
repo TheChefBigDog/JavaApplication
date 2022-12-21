@@ -12,7 +12,8 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.JavaApplication">
-        <activity android:name=".Activity.PhotoExifActivity"></activity>
+        <activity android:name=".Activity.ChangePasswordActivity"></activity>
+        <activity android:name=".Activity.PhotoExifActivity" />
         <activity android:name=".Activity.UpdateProfileActivity" />
         <activity android:name=".Activity.UpdateProfileActivityRenew" />
         <activity android:name=".Activity.CheckUserActivity" />
@@ -29,12 +30,13 @@
         </activity>
         <activity android:name=".Activity.MainActivity" />
     </application>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

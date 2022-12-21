@@ -51,7 +51,7 @@ public class SplashScreen extends AppCompatActivity {
         dbHelper = new DBHelper(SplashScreen.this);
         database = dbHelper.getReadableDatabase();
         pref = getSharedPreferences("kotPref", MODE_PRIVATE);
-        user_id = pref.getString("_userid", "");
+        user_id = pref.getString("_username", "");
         if (ContextCompat.checkSelfPermission(this, String.valueOf(PERMISSIONS))
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[] {
@@ -92,15 +92,6 @@ public class SplashScreen extends AppCompatActivity {
                 break;
         }
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode == CODE_CAMERA_REQUEST && resultCode == RESULT_OK){
-//
-//        }
-    }
-
     public void delayIntent(Boolean loginStatus) {
         if(!loginStatus){
             new Handler().postDelayed(() -> {
@@ -113,7 +104,7 @@ public class SplashScreen extends AppCompatActivity {
             }, 2000);
         }else{
             new Handler().postDelayed(() -> {
-                Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+                Intent intent = new Intent(SplashScreen.this, ChangePasswordActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 pbDialog.setVisibility(View.GONE);

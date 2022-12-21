@@ -113,41 +113,42 @@ public class UpdateProfileActivityRenew extends AppCompatActivity implements  Pr
             etVillage.setText(userId.getJalan());
             tvKodePos.setText(userId.getZipCode());
 //            c.close();
-        }else{
-        }
-        RequestLocationBody requestLocationBody = new RequestLocationBody();
-        requestLocationBody.setUsername("15040198");
-        requestLocationBody.setVersion("134");
-        provinceInterface.getProvince(requestLocationBody).enqueue(new Callback<ProvinceModel>() {
-            @Override
-            public void onResponse(Call<ProvinceModel> call, Response<ProvinceModel> response) {
-                if(response.isSuccessful()){
-                    if(response.body().getResponseStatus().equals("OK")){
-                        provinceItemArrayList = new ArrayList<>();
-                        provinceItemArrayList = response.body().getList();
-                        for (ListItem listItem : provinceItemArrayList){
-                            provinceStringItemArrayList.add(listItem.getLookupId());
-                            provinceStringNameItemArrayList.add(listItem.getName());
-                            provinceStringPostalTypeItemArrayList.add(listItem.getPostalType());
-                        }
-                        for(int i = 0 ; i < provinceStringNameItemArrayList.size() ; i++){
-                            if(provinceStringNameItemArrayList.get(i).equals(userId.getProvinsi())){
-                                indexString = provinceStringNameItemArrayList.get(i).toString();
-                                indexOf = provinceStringItemArrayList.get(i).toString();
-                                postalTypeProvince = provinceStringPostalTypeItemArrayList.get(i).toString();
+        }else {
+            RequestLocationBody requestLocationBody = new RequestLocationBody();
+            requestLocationBody.setUsername("15040198");
+            requestLocationBody.setVersion("134");
+            provinceInterface.getProvince(requestLocationBody).enqueue(new Callback<ProvinceModel>() {
+                @Override
+                public void onResponse(Call<ProvinceModel> call, Response<ProvinceModel> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getResponseStatus().equals("OK")) {
+                            provinceItemArrayList = new ArrayList<>();
+                            provinceItemArrayList = response.body().getList();
+                            for (ListItem listItem : provinceItemArrayList) {
+                                provinceStringItemArrayList.add(listItem.getLookupId());
+                                provinceStringNameItemArrayList.add(listItem.getName());
+                                provinceStringPostalTypeItemArrayList.add(listItem.getPostalType());
                             }
+                            for (int i = 0; i < provinceStringNameItemArrayList.size(); i++) {
+                                if (provinceStringNameItemArrayList.get(i).equals(userId.getProvinsi())) {
+                                    indexString = provinceStringNameItemArrayList.get(i).toString();
+                                    indexOf = provinceStringItemArrayList.get(i).toString();
+                                    postalTypeProvince = provinceStringPostalTypeItemArrayList.get(i).toString();
+                                }
+                            }
+                            setProvinceList(indexOf, postalTypeProvince);
                         }
-                        setProvinceList(indexOf, postalTypeProvince);
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ProvinceModel> call, Throwable t) {
-                Toast.makeText(UpdateProfileActivityRenew.this, "Server Error", Toast.LENGTH_SHORT).show();
+                @Override
+                public void onFailure(Call<ProvinceModel> call, Throwable t) {
+                    Toast.makeText(UpdateProfileActivityRenew.this, "Server Error", Toast.LENGTH_SHORT).show();
 
-            }
-        });
+                }
+
+            });
+        }
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

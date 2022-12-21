@@ -15,6 +15,7 @@
         android:id="@+id/btn_post"
         android:backgroundTint="@color/blue_discord"
         android:textAllCaps="false"
+        android:textColor="@color/white"
         android:layout_below="@+id/rlProfile"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="10dp"

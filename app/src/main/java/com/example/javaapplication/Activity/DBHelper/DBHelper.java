@@ -24,7 +24,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static String NAME_COl = "name";
     public static String PASS_COL = "password";
     public static String PHONE_COL = "phone_number";
-    public static String PROVINSI_COL = "provinsi";
+    public static String PROVINSI_COL = "providnsi";
     public static String KABUPATEN_COL = "kabupaten";
     public static String KOTA_COL = "kota";
     public static String JALAN_COL = "jalan";

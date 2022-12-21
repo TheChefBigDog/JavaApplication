@@ -17,4 +17,8 @@
     <string name="chooseVillage">Choose your SubDistrict</string>
     <string name="chooseZipCode">Choose your Zip Code</string>
     <string name="createUsername">Create your Username</string>
+    <string name="oldPassword">Input your Old Password</string>
+    <string name="newPassword">Input your New Password</string>
+    <string name="confirmNewPassword">Confirm your New Password</string>
+    <string name="changePassword">Change Password</string>
 </resources>

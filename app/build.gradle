@@ -3,6 +3,9 @@ plugins {
 }
 
 android {
+    dataBinding {
+        android.buildFeatures.dataBinding = true
+    }
     signingConfigs {
 
         debug {
@@ -54,6 +57,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
 }
 
 dependencies {
@@ -71,6 +75,7 @@ dependencies {
     debugImplementation 'com.github.chuckerteam.chucker:library:3.5.2'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.jakewharton:butterknife:10.2.3'
+    implementation 'com.szagurskii:patternedtextwatcher:0.5.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
@@ -78,6 +83,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.github.RedMadRobot:input-mask-android:6.1.0'
     // implementation project(path: ':javaapplication2')
 
 }

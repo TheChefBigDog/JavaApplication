@@ -120,7 +120,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements  Provins
     private void setProvinceList(String locationType) {
         RequestLocationBody requestLocationBody = new RequestLocationBody();
         requestLocationBody.setUsername("15040198");
-        requestLocationBody.setVersion("134");
+        requestLocationBody.setVersion("135");
 
         provinceInterface.getProvince(requestLocationBody).enqueue(new Callback<ProvinceModel>() {
             @Override
@@ -199,7 +199,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements  Provins
     private void setKabupatenList(String lookUpId, String postalType) {
         RequestLocationBody requestLocationBody = new RequestLocationBody();
         requestLocationBody.setUsername("15040198");
-        requestLocationBody.setVersion("134");
+        requestLocationBody.setVersion("135");
         requestLocationBody.setPostalId(lookUpId);
         requestLocationBody.setPostalType(postalType);
         locationType = "district";
@@ -281,7 +281,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements  Provins
     private void setKotaList(String kabupatenLookUpId, String kabupatenPostalType) {
         RequestLocationBody requestLocationBody = new RequestLocationBody();
         requestLocationBody.setUsername("15040198");
-        requestLocationBody.setVersion("134");
+        requestLocationBody.setVersion("135");
         requestLocationBody.setPostalId(kabupatenLookUpId);
         requestLocationBody.setPostalType(kabupatenPostalType);
         locationType = "city";
@@ -357,7 +357,7 @@ public class UpdateProfileActivity extends AppCompatActivity implements  Provins
     private void setVillageList(String kotaPostalType, String kotaLookUpId) {
         RequestLocationBody requestLocationBody = new RequestLocationBody();
         requestLocationBody.setUsername("15040198");
-        requestLocationBody.setVersion("134");
+        requestLocationBody.setVersion("135");
         requestLocationBody.setPostalId(kotaLookUpId);
         requestLocationBody.setPostalType(kotaPostalType);
 //        provinceInterface.getVillage(requestLocationBody).enqueue(new Callback<Village>() {
