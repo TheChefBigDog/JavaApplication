@@ -21,7 +21,6 @@
         android:indeterminate="true"
         android:indeterminateTintMode="src_atop"
         android:indeterminateTint="@color/blue_discord"
-        android:layout_below="@+id/tv_loading"
         android:layout_centerInParent="true"
         />
 

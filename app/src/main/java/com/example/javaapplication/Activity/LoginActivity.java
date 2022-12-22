@@ -81,8 +81,6 @@ public class LoginActivity extends AppCompatActivity {
         dbHelper = new DBHelper(LoginActivity.this);
         database = dbHelper.getReadableDatabase();
         loginInterface = LoginUtils.loginInformation(this);
-
-//        binding.etUsername.addTextChangedListener(new PatternedTextWatcher("####-########"))
         binding.etUsername.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -222,7 +220,9 @@ public class LoginActivity extends AppCompatActivity {
                                     Intent intent = new Intent(LoginActivity.this, ChangePasswordActivity.class);
                                     SharedPreferences.Editor prefEditor = pref.edit();
                                     prefEditor.putString("_username", response.body().getUser().getUsername());
+                                    prefEditor.putString("_userId", response.body().getUser().getUserId());
                                     prefEditor.putString("_accessToken", response.body().getAccessToken());
+                                    prefEditor.putString("_refreshToken", response.body().getRefreshToken());
                                     prefEditor.apply();
                                     startActivity(intent);
 //                                    try {
@@ -323,36 +323,6 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    public static String encryptStrAndToBase64(String ivStr, String keyStr, String enStr) throws Exception {
-//        Log.e("TAG", "encryptStrAndToBase64: " + keyStr + " " + enStr);
-//        String bytes = encryptAES(keyStr.getBytes(), keyStr.getBytes(), enStr.getBytes());
-//
-////        Log.e("TAG", "encryptStrAndToBase64: " + Base64.encodeToString(bytes , Base64.DEFAULT));
-//        return Base64.encodeToString(encryptMD5SHA(encryptAES(keyStr.getBytes(), keyStr.getBytes(), enStr.getBytes()) , Base64.DEFAULT);
-//    }
-//
-//    private static byte[] encryptMD5SHA(byte[] ivStr, byte[] keyStr, byte[] bytes) throws Exception {
-//        MessageDigest md = MessageDigest.getInstance("MD5");
-//        md.update(ivStr);
-//        byte[] ivBytes = md.digest(); //Digest mengubah valuenya jadi bytes
-//        MessageDigest sha = MessageDigest.getInstance("SHA-256");
-//        sha.update(keyStr);
-//        byte[] keyBytes = md.digest();//Digest mengubah valuenya jadi bytes
-//        return encryptAES(ivBytes, keyBytes, bytes).getBytes();
-//    }
-//
-//     static String encryptAES(byte[] ivBytes, byte[] keyBytes, byte[] bytes) throws Exception {
-//        AlgorithmParameterSpec ivSpec = new IvParameterSpec(ivBytes);
-//        SecretKeySpec newKey = new SecretKeySpec(keyBytes, "AES");
-//        Log.e("TAG", "encryptAES: " + newKey.toString());
-//        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-//        cipher.init(Cipher.ENCRYPT_MODE, newKey, ivSpec);
-//        String encryptedValue = Base64.encodeToString(bytes , Base64.DEFAULT);
-//
-////        DeflaterInputStream deflaterInput = new DeflaterInputStream(new CipherInputStream(new DeflaterInputStream(new ByteArrayInputStream(ivBytes)), cipher));
-//        return encryptedValue;
-//    }
-
     public static String encryptStrAndToBase64(String ivStr, String keyStr, String enStr) throws Exception {
         byte[] bytes = encrypt(keyStr, keyStr, enStr.getBytes("UTF-8"));
         return new String(Base64.encode(bytes , Base64.DEFAULT), "UTF-8");
@@ -366,7 +336,6 @@ public class LoginActivity extends AppCompatActivity {
         MessageDigest sha = MessageDigest.getInstance("SHA-256");
         sha.update(keyStr.getBytes(StandardCharsets.UTF_8));
         byte[] keyBytes = sha.digest();
-        Log.e("TAG", "encrypt: " + encrypt(ivBytes, keyBytes, bytes));
         return encrypt(ivBytes, keyBytes, bytes);
     }
 
@@ -379,4 +348,10 @@ public class LoginActivity extends AppCompatActivity {
         return cipher.doFinal(bytes);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        binding.etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+        binding.ivEye.setImageResource(R.drawable.ic_hide_password);
+    }
 }

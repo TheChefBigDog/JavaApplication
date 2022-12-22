@@ -26,7 +26,7 @@ public class LoginModel{
 	private String responseId;
 
 	@SerializedName("refreshToken")
-	private Object refreshToken;
+	private String refreshToken;
 
 	public void setMobileDeviceId(Object mobileDeviceId){
 		this.mobileDeviceId = mobileDeviceId;
@@ -84,11 +84,11 @@ public class LoginModel{
 		return responseId;
 	}
 
-	public void setRefreshToken(Object refreshToken){
+	public void setRefreshToken(String refreshToken){
 		this.refreshToken = refreshToken;
 	}
 
-	public Object getRefreshToken(){
+	public String getRefreshToken(){
 		return refreshToken;
 	}
 }

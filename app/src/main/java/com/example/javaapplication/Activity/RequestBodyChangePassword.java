@@ -17,10 +17,10 @@ public class RequestBodyChangePassword{
 	private String newPassword;
 
 	@SerializedName("userId")
-	private int userId;
+	private String userId;
 
 	@SerializedName("version")
-	private int version;
+	private String version;
 
 	@SerializedName("key")
 	private String key;
@@ -60,19 +60,19 @@ public class RequestBodyChangePassword{
 		return newPassword;
 	}
 
-	public void setUserId(int userId){
+	public void setUserId(String userId){
 		this.userId = userId;
 	}
 
-	public int getUserId(){
+	public String getUserId(){
 		return userId;
 	}
 
-	public void setVersion(int version){
+	public void setVersion(String version){
 		this.version = version;
 	}
 
-	public int getVersion(){
+	public String getVersion(){
 		return version;
 	}
 

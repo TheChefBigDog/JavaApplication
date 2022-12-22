@@ -21,16 +21,16 @@ public interface LoginInterface {
     @POST("ops2/login")
     Call<LoginModel> postLogin(@Body ResponseBodyLoginPhoneNumber requestBodyLogin);
 
-
     @POST("ops2/changepassword")
-    Call<LoginModel> changepassWord(@Body RequestBodyChangePassword requestBodyChangePassword);
+    Call<LoginModel> changepassWord(@Header("token") String token,
+                                    @Body RequestBodyChangePassword requestBodyChangePassword);
 
     @POST("ops2/authentication/refreshtoken")
     Call<RefreshToken> refreshTken(@Header("token") String token,
                                    @Body RequestBodyRefreshToken requestBodyRefreshToken);
 
     @GET("ops2/organizationsetup/read/{version}/{username}")
-    Call<OrganizationSetupModel> getOrganizationInfo(@Path("version") String id,
+    Call<OrganizationSetupModel> getOrganizationInfo(@Path("version") String version,
                                                      @Path("username") String username,
                                                      @Header("token") String token);
 

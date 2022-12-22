@@ -11,7 +11,7 @@ public class OrganizationSetupModel{
 	private String upperCaseLetter;
 
 	@SerializedName("minLengthPass")
-	private int minLengthPass;
+	private String minLengthPass;
 
 	@SerializedName("alphabetUserPass")
 	private String alphabetUserPass;
@@ -26,7 +26,7 @@ public class OrganizationSetupModel{
 	private Object responseMessage;
 
 	@SerializedName("maxRowPass")
-	private int maxRowPass;
+	private String maxRowPass;
 
 	@SerializedName("responseId")
 	private String responseId;
@@ -47,11 +47,11 @@ public class OrganizationSetupModel{
 		return upperCaseLetter;
 	}
 
-	public void setMinLengthPass(int minLengthPass){
+	public void setMinLengthPass(String minLengthPass){
 		this.minLengthPass = minLengthPass;
 	}
 
-	public int getMinLengthPass(){
+	public String getMinLengthPass(){
 		return minLengthPass;
 	}
 
@@ -87,11 +87,11 @@ public class OrganizationSetupModel{
 		return responseMessage;
 	}
 
-	public void setMaxRowPass(int maxRowPass){
+	public void setMaxRowPass(String maxRowPass){
 		this.maxRowPass = maxRowPass;
 	}
 
-	public int getMaxRowPass(){
+	public String getMaxRowPass(){
 		return maxRowPass;
 	}
 

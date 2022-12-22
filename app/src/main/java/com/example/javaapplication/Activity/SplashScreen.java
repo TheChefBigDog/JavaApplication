@@ -59,11 +59,11 @@ public class SplashScreen extends AppCompatActivity {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.ACCESS_FINE_LOCATION}, 0);
         }else{
-            if (user_id.equals("")) {
+//            if (user_id.equals("")) {
                 delayIntent(false);
-            } else {
-                delayIntent(true);
-            }
+//            } else {
+//                delayIntent(true);
+//            }
         }
 
     }
@@ -77,11 +77,11 @@ public class SplashScreen extends AppCompatActivity {
                     if (ContextCompat.checkSelfPermission(this,
                             Manifest.permission.CAMERA) ==
                             PackageManager.PERMISSION_GRANTED) {
-                        if (user_id.equals("")) {
+//                        if (user_id.equals("")) {
                             delayIntent(false);
-                        } else {
-                            delayIntent(true);
-                        }
+//                        } else {
+//                            delayIntent(true);
+//                        }
                     }
                 } else {
                     ActivityCompat.requestPermissions(this,

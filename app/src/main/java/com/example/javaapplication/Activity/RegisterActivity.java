@@ -454,12 +454,12 @@ public class RegisterActivity extends AppCompatActivity implements ProvinsiInter
     private String hashPassword(String parameter1){
 
 //            try {
-//                MessageDigest md = MessageDigest.getInstance("MD5");
-//                byte[] messageDigest = md.digest(parameter1.getBytes());
-//                BigInteger no = new BigInteger(1, messageDigest);
-//                md.update(parameter1.getBytes(),0,parameter1.length());
+////                MessageDigest md = MessageDigest.getInstance("MD5");
+////                byte[] messageDigest = md.digest(parameter1.getBytes());
+////                BigInteger no = new BigInteger(1, messageDigest);
+////                md.update(parameter1.getBytes(),0,parameter1.length());
 //                String password = "1234";
-//                String bcryptHashString = BCrypt.withDefaults().hashToString(12, parameter1.toCharArray());
+////                String bcryptHashString = BCrypt.withDefaults().hashToString(12, parameter1.toCharArray());
 //                    String hashed = BCrypt.hashpw("123BobbyRyan", BCrypt.gensalt());
 //                BCrypt.Result result = BCrypt.verifyer().verify(bcryptHashString.toCharArray(), bcryptHashString);
 //                String signature = new BigInteger(1).toString(16);
